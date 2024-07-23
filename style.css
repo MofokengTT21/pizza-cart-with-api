@@ -261,11 +261,16 @@ button {
   }
 }
 @media (max-width: 480px) {
+  .pizzas-list {
+    justify-content: space-between;
+  }
   .fetched-imgs {
+    flex: 1;
     width:30vw;
   }
   .pizza-description-box {
-    width: 40vw;
+    flex:8;
+    width: 45vw;
   }
   .pizza-list-heading {
     font-size:20px;
@@ -280,6 +285,9 @@ button {
 }
 
 @media (max-width: 420px) {
+  .pizzas-list {
+    justify-content: space-evenly;
+  }
   .fetched-imgs {
     width:20vw;
   }
