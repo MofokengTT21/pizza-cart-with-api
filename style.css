@@ -222,24 +222,65 @@ button {
     display: flex;
   }
 }
-@media (min-width: 600px) and (max-width: 960px) {
+@media (min-width: 780px) and (max-width: 990px) {
   .pizzas-list {
     display: flex;
-    justify-content: space-evenly;
+  }
+  .fetched-imgs {
+    width:13vw;
+  }
+  .pizza-description-box {
+    width: 25vw;
   }
 }
-@media (max-width: 400px) {
+
+@media (max-width: 780px) {
   .fetched-imgs {
-    width: 100px;
+    width:13vw;
   }
-  .pizza-box,
+  .pizza-description-box {
+    width: 22vw;
+  }
+}
+@media (max-width: 690px) {
+  .pizzas-list {
+    justify-content: space-evenly;
+  }
+  .fetched-imgs {
+    width:165px;
+  }
+  .pizza-description-box {
+    width:35vw;
+  }
+  .pizza-list-heading {
+    width: 100%;
+  }
+  .content {
+    margin: 0;
+    padding:0px;
+  }
+}
+@media (max-width: 480px) {
+  .fetched-imgs {
+    width:30vw;
+  }
+  .pizza-description-box {
+    width: 40vw;
+  }
+  .pizza-list-heading {
+    font-size:20px;
+  }
+  .pizzha-box,
   .logo {
     transform: scale(0.85);
   }
-  .content {
-    padding:0px;
-  }
   table{
     transform: scale(0.90);
+  }
+}
+
+@media (max-width: 420px) {
+  .fetched-imgs {
+    width:20vw;
   }
 }
