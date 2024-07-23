@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <script src="https://unpkg.com/axios@1.6.7/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body x-data="pizzaCart">
+
+    <header>
+        <div class="logo" style="display: flex; align-items: center;">
+            <img class="logo-img" src="images/image.png" width="80px" height="80px">
+            <h1 style="margin-top: -10px;">PERFERCT<i style="color: rgb(255, 0, 0);">PIZZA</i></h1>
+        </div>
+
+    </header>
+
+    <div class="content" x-data="{ showBasket: false }">
+        <div style="display: flex; padding-right: 25px; margin-bottom: -10px; font-size: 19px; justify-content: end;">
+            <h2 style="padding-right: 10px;">Basket</h2>
+            <button class="basket-btn" style="background-color: rgba(0, 0, 0, 0); border-radius: 30px; position: relative;"
+                @click="showBasket = !showBasket">
+                <img src="images/basket.png" width="44px">
+                <span class="basket-qty" x-text="totalQty()"></span>
+            </button>
+        </div>
+        <table x-show="showBasket">
+            <thead>
+                <tr>
+                    <td>Pizza</td>
+                    <td>Flavour</td>
+                    <td class="quantity">Quantity</td>
+                    <td>Price</td>
+                </tr>
+            </thead>
+            <tbody>
+                <template x-for="pizza in cartPizzas">
+                    <tr>
+                        <td><img :src="pizzaImg(pizza)" width="100px"></td>
+                        <td>
+                            <p class="pizza-flavour" x-text="pizza.flavour" style="margin-bottom: -10px;"></p><br>
+                            <b class="pizza-type" x-text="pizza.type"
+                                style="text-transform: capitalize; color: rgb(124, 124, 124);"></b><br>
+                            <p class="pizza-size" style="text-transform: capitalize;"><b>Size: </b><span
+                                    x-text="pizza.size"></span></p>
+                        </td>
+                        <td>
+                            <button class="add-minus-btn">-</button>
+                            <span x-text="pizza.qty" style="padding: 10px; font-weight:600"></span>
+                            <button class="add-minus-btn">+</button>
+                        </td>
+                        <td><b style="font-size: 20px;">R <span class="pizza-price" x-text="pizza.total"></span></b>
+                        </td>
+                    </tr>
+                </template>
+            </tbody>
+        </table>
+
+        <!-- Select Pizza Size -->
+        <div class="pizzas">
+            <!-- Small Pizzas Section -->
+            <div class="box small_pizza">
+                <div style="height: 280px;">
+                    <img src="images/Whole-Wheat-Pizza-Dough-29.jpg" width="279px" style="border-radius: 15px;" />
+                </div>
+                <h2>Small <i style="color: rgb(255, 0, 0);">PIZZA</i></h2>
+                <div>Packed with premium toppings and mouthwatering flavor, it's the ideal size for a solo indulgence.
+                </div>
+                <!-- Filter Small Pizza -->
+                <div class="bottom">
+                    <section>
+                        <p><b>Type:</b></p>
+                        <template x-for="type in filterOptions.type" :key="type">
+                            <button :class="{ 'button': true, 'selected': selectedFilter.small.type === type }"
+                                @click="filterPizzas('small', 'type', type)"
+                                x-text="type.charAt(0).toUpperCase() + type.slice(1)"></button>
+                        </template>
+                        <p><b>Flavours:</b></p>
+                        <template x-for="flavour in filterOptions.flavour" :key="flavour">
+                            <button :class="{ 'button': true, 'selected': selectedFilter.small.flavour === flavour }"
+                                @click="filterPizzas('small', 'flavour', flavour)" x-text="flavour"></button>
+                        </template>
+                    </section>
+                </div>
+            </div>
+
+            <!-- Medium Pizzas Section -->
+            <div class="box medium_pizza">
+                <div style="height: 280px;">
+                    <img src="images/Medium-Pizza-8-Slices.jpg" width="340px" style="border-radius: 15px;" />
+                </div>
+                <h2>Medium <i style="color: rgb(255, 0, 0);">PIZZA</i></h2>
+                <div>Gather your friends or enjoy a feast for two with our medium pizza! Loaded with fresh, flavorful
+                    ingredients and baked to perfection.</div>
+                <!-- Filter Medium Pizza -->
+                <section>
+                    <p><b>Type:</b></p>
+                    <template x-for="type in filterOptions.type" :key="type">
+                        <button :class="{ 'button': true, 'selected': selectedFilter.medium.type === type }"
+                            @click="filterPizzas('medium', 'type', type)"
+                            x-text="type.charAt(0).toUpperCase() + type.slice(1)"></button>
+                    </template>
+                    <p><b>Flavours:</b></p>
+                    <template x-for="flavour in filterOptions.flavour">
+                        <button :class="{ 'button': true, 'selected': selectedFilter.medium.flavour === flavour }"
+                            @click="filterPizzas('medium', 'flavour', flavour)" x-text="flavour"></button>
+                    </template>
+                </section>
+            </div>
+
+            <!-- Large Pizzas Section -->
+            <div class="box large_pizza">
+
+                <div style="height: 280px;">
+                    <img src="images/Pizza_HT_3-Lg-3tops_10_27_15_Dominos_5x7.jpg" width="395px" style="border-radius: 15px;" />
+                </div>
+                <h2>Large <i style="color: rgb(255, 0, 0);">PIZZA</i></h2>
+                <div>Feeding a crowd? Our large pizza is the ultimate choice! Generously topped with your favorite
+                    ingredients and bursting with flavor.</div>
+                <!-- Filter Large Pizza -->
+                <section>
+                    <p><b>Type:</b></p>
+                    <template x-for="type in filterOptions.type" :key="type">
+                        <button :class="{ 'button': true, 'selected': selectedFilter.large.type === type }"
+                            @click="filterPizzas('large', 'type', type)"
+                            x-text="type.charAt(0).toUpperCase() + type.slice(1)"><img src="images/tomato.jpg"
+                                width="50px">
+                            Tomato</button>
+                    </template>
+                    <p><b>Flavours:</b></p>
+                    <template x-for="flavour in filterOptions.flavour" :key="flavour">
+                        <button :class="{ 'button': true, 'selected': selectedFilter.large.flavour === flavour }"
+                            @click="filterPizzas('large', 'flavour', flavour)" x-text="flavour"></button>
+                    </template>
+                </section>
+            </div>
+        </div>
+
+        <!-- Fetch All Pizzas -->
+
+        <div class="pizzas-box">
+            <!-- Show All -->
+            <button class="show-all" @click="resetFilter()">Show All</button>
+            <div class="pizzas-list">
+
+                <template x-for="pizza in filteredPizzas">
+                    <div class="pizza-box" style="display: flex;">
+                        <div style="padding: 25px;">
+                            <img class="fetched-imgs" :src="pizzaImg(pizza)">
+                        </div>
+                        <div class="">
+                            <h2 class="pizza-list-heading" x-text="pizza.flavour"></h2>
+                            <p style="margin-top: -12px; text-transform: capitalize; font-weight: bold; color: rgb(112, 112, 112);"
+                                x-text="pizza.type"></p>
+                            <div
+                                style="display: flex; justify-content: space-between; flex-wrap: wrap; align-items: center; margin-top: -25px;">
+                                <p style="text-transform: capitalize;"><b>Size: </b><span x-text="pizza.size"
+                                        style="padding-right: 10px;"></span></p>
+                                <b class="price">R<span x-text="pizza.price"></span></b>
+                            </div>
+                            <div style="display: flex;">
+                                <button class="order-btn">Order</button>
+                                <button class="qty" style="cursor: text;" x-text="">1</button>
+                                <div class="qty-btn" style="display: grid;">
+                                    <button class="qty-btn1"><span class="">+</span></button>
+                                    <button class="qty-btn2"><span>-</span></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </template>
+            </div>
+        </div>
+    </div>
+    <script src="pizza.js"></script>
+
+</body>
+
+</html>
