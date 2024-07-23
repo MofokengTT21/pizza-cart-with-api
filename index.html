@@ -21,11 +21,11 @@
     </header>
 
     <div class="content" x-data="{ showBasket: false }">
-        <div style="display: flex; padding-right: 25px; margin-bottom: -10px; font-size: 19px; justify-content: end;">
-            <h2 style="padding-right: 10px;">Basket</h2>
-            <button class="basket-btn" style="background-color: rgba(0, 0, 0, 0); border-radius: 30px; position: relative;"
+        <div class="basket-btn-div" style="display: flex; padding-right: 25px; justify-content: end;">
+            <button class="basket-btn" style="display: flex; align-items: center; background-color: rgba(0, 0, 0, 0); border-radius: 30px; position: relative; justify-content: end;"
                 @click="showBasket = !showBasket">
-                <img src="images/basket.png" width="40px">
+                <h2 style="padding-right: 10px;">Basket</h2>
+                <img src="images/basket.png" width="34px">
                 <span class="basket-qty" x-text="totalQty()"></span>
             </button>
         </div>
