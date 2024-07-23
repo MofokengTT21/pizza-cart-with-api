@@ -27,6 +27,22 @@ document.addEventListener("alpine:init", () => {
             return axios.get(getCartURL);
         },
 
+        addPizza(pizzaId) {
+
+        return axios.post('https://pizza-api.projectcodex.net/api/pizza-cart/add', {
+            "cart_code" : this.cartId,
+            "pizza_id" : pizzaId
+        })
+        },
+
+        removePizza(pizzaId) {
+
+            return axios.post('https://pizza-api.projectcodex.net/api/pizza-cart/remove', {
+                "cart_code" : this.cartId,
+                "pizza_id" : pizzaId
+            })
+            },
+
         showCartData() {
             this.getCart().then(result => {
                 const cartData = result.data;
@@ -43,6 +59,21 @@ document.addEventListener("alpine:init", () => {
                 });
 
             this.showCartData();
+        },
+
+        addPizzaToCart(pizzaId) {
+            this
+            .addPizza(pizzaId)
+            .then(() => {
+                this.showCartData();
+            })
+        },
+        removePizzaFromCart(pizzaId) {
+            this
+            .removePizza(pizzaId)
+            .then(() => {
+                this.showCartData();
+            })
         },
 
         filterPizzas(size = this.selectedFilter.size, criteria, value) {

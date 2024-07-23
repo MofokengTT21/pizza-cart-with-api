@@ -46,7 +46,7 @@ td {
   font-weight: 500;
 }
 td.quantity {
-  padding: 23px;
+  padding: 48px;
 }
 tbody tr:hover {
   transform: scale(1.02);
@@ -59,10 +59,12 @@ tbody tr:hover {
   background-color: red;
   color: white;
   border-radius: 100%;
-  padding: 2px 8px;
-  margin-top: -10px;
+  width: 28px;
+  height: 25px;
+  padding-top:2px;
+  margin: -9px 0 0 -5px;
   position: absolute;
-  font-size: large;
+  font-size: medium;
   font-weight: bolder;
 }
 .add-minus-btn {
