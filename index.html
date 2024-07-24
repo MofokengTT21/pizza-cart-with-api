@@ -35,26 +35,26 @@
                     <td>Pizza</td>
                     <td>Flavour</td>
                     <td class="quantity">Qty</td>
-                    <td>Price</td>
+                    <td class="price-td">Price</td>
                 </tr>
             </thead>
             <tbody>
                 <template x-for="pizza in cartPizzas">
                     <tr>
-                        <td><img :src="pizzaImg(pizza)" width="100px"></td>
+                        <td><img class="pizza-cart-img" :src="pizzaImg(pizza)" ></td>
                         <td>
-                            <p class="pizza-flavour" x-text="pizza.flavour" style="margin-bottom: -10px;"></p><br>
-                            <b class="pizza-type" x-text="pizza.type"
-                                style="text-transform: capitalize; color: rgb(124, 124, 124);"></b><br>
+                            <p class="pizza-flavour" x-text="pizza.flavour" ></p><br>
+                            <p class="pizza-type" x-text="pizza.type"
+                                style="text-transform: capitalize; color: rgb(124, 124, 124); margin: -30px 0 -25px;"></p><br>
                             <p class="pizza-size" style="text-transform: capitalize;"><b>Size: </b><span
                                     x-text="pizza.size"></span></p>
                         </td>
                         <td>
                             <button class="add-minus-btn" x-on:click="removePizzaFromCart(pizza.id)">-</button>
-                            <span x-text="pizza.qty" style="padding: 10px; font-weight:600"></span>
+                            <span class="cart-qty" x-text="pizza.qty"></span>
                             <button class="add-minus-btn" x-on:click="addPizzaToCart(pizza.id)">+</button>
                         </td>
-                        <td><b style="font-size: 20px;">R <span class="pizza-price" x-text="pizza.total.toFixed(2)"></span></b>
+                        <td ><span class="pizza-price"><b class="pizza-price">R <span  x-text="pizza.total.toFixed(2)"></span></b></span>
                         </td>
                     </tr>
                 </template>

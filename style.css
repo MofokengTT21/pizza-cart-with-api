@@ -50,9 +50,14 @@ td {
 }
 td.quantity {
   padding: 25px 0 25px 45px;
+  min-width: 33px;
 }
 tbody tr:hover {
   transform: scale(1.02);
+}
+.pizza-cart-img {
+  margin-top: 8px; 
+  width: 120px
 }
 .basket-btn {
   font-size: medium;
@@ -72,6 +77,10 @@ tbody tr:hover {
   font-size: medium;
   font-weight: bolder;
 }
+.cart-qty {
+  padding: 10px; 
+  font-weight:600
+}
 .add-minus-btn {
   background-color: rgb(223, 0, 0);
   color: white;
@@ -84,7 +93,9 @@ tbody tr:hover {
 .add-minus-btn:hover {
   transform: scale(1.1);
 }
-
+.pizza-price {
+  font-size:20px;
+}
 .box,
 .pizzas-box {
   border-radius: 15px;
@@ -252,6 +263,34 @@ button {
   .pizzas-list {
     justify-content: space-evenly;
   }
+  table {
+    font-size:14px;
+  }
+  td.quantity {
+    padding: 25px;
+    min-width: 80px;
+  }
+  td.price-td {
+    min-width:80px;
+  }
+  .pizza-cart-img {
+    width: 75px;
+    padding-right: 8px;
+  }
+  .add-minus-btn {
+    font-weight:700;
+    width: 28px;
+    height: 28px;
+  }
+  .cart-qty {
+    padding: 2px;
+  }
+  .pizza-flavour {
+    font-size: larger;
+  }
+  .pizza-price {
+    font-size: small;
+  }
   .fetched-imgs {
     width:165px;
   }
@@ -265,6 +304,7 @@ button {
     margin: 13px 0;
     padding:0px;
   }
+
 }
 @media (max-width: 480px) {
   .pizzas-list {
@@ -287,6 +327,7 @@ button {
   .small_pizza{
     flex: 0 0 80%;
   }
+
 }
 
 @media (max-width: 428px) {
