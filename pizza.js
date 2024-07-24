@@ -78,11 +78,7 @@ document.addEventListener("alpine:init", () => {
         },
 
         incrementQty(pizzaId) {
-            if (!this.pizzaQty[pizzaId]) {
-                this.pizzaQty[pizzaId] = 2;
-            } else {
-                this.pizzaQty[pizzaId]++;
-            }
+            this.pizzaQty[pizzaId] = (this.pizzaQty[pizzaId] ?? 1) + 1;
         },        
 
         decrementQty(pizzaId) {
