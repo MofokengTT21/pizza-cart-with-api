@@ -13,6 +13,7 @@ document.addEventListener("alpine:init", () => {
         cartPizzas: [],
         totalQty: [],
         sumQty: 0.00,
+        pizzaQty: {},
         showQty() {
             const cartQty = this.pizza.qty;
             this.totalQty = cartQty;
@@ -41,7 +42,7 @@ document.addEventListener("alpine:init", () => {
                 "cart_code" : this.cartId,
                 "pizza_id" : pizzaId
             })
-            },
+        },
 
         showCartData() {
             this.getCart().then(result => {
@@ -59,21 +60,6 @@ document.addEventListener("alpine:init", () => {
                 });
 
             this.showCartData();
-        },
-
-        addPizzaToCart(pizzaId) {
-            this
-            .addPizza(pizzaId)
-            .then(() => {
-                this.showCartData();
-            })
-        },
-        removePizzaFromCart(pizzaId) {
-            this
-            .removePizza(pizzaId)
-            .then(() => {
-                this.showCartData();
-            })
         },
 
         filterPizzas(size = this.selectedFilter.size, criteria, value) {
@@ -113,6 +99,9 @@ document.addEventListener("alpine:init", () => {
         },
         pizzaImg(pizza) {
             return `images/pizza-${pizza.flavour.replace(/ /g, '-').toLowerCase()}.jpeg`;
+        },
+        typeImg(type) {
+            return `images/${type}.png`;
         },
         totalQty() {
             return this.cartPizzas.reduce((sum, pizza) => sum + pizza.qty, 0);

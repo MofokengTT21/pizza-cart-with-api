@@ -76,14 +76,19 @@
                     <section>
                         <p><b>Type:</b></p>
                         <template x-for="type in filterOptions.type" :key="type">
-                            <button :class="{ 'button': true, 'selected': selectedFilter.small.type === type }"
-                                @click="filterPizzas('small', 'type', type)"
-                                x-text="type.charAt(0).toUpperCase() + type.slice(1)"></button>
+                            <a href="#pizzas-box">
+                            <button :class="{ 'button': true, 'selected': selectedFilter.small.type === type }" 
+                                @click="filterPizzas('small', 'type', type)" style="padding: 8px 12px 10px 5px; "
+                                ><img :src="typeImg(type)" width="35px" style="margin-bottom: -4px; padding-right: 5px;"><span x-text="type.charAt(0).toUpperCase() + type.slice(1)"></span>
+                            </button>
+                            </a>
                         </template>
                         <p><b>Flavours:</b></p>
                         <template x-for="flavour in filterOptions.flavour" :key="flavour">
+                            <a href="#pizzas-box">
                             <button :class="{ 'button': true, 'selected': selectedFilter.small.flavour === flavour }"
                                 @click="filterPizzas('small', 'flavour', flavour)" x-text="flavour"></button>
+                            </a>
                         </template>
                     </section>
                 </div>
@@ -101,14 +106,19 @@
                 <section>
                     <p><b>Type:</b></p>
                     <template x-for="type in filterOptions.type" :key="type">
-                        <button :class="{ 'button': true, 'selected': selectedFilter.medium.type === type }"
-                            @click="filterPizzas('medium', 'type', type)"
-                            x-text="type.charAt(0).toUpperCase() + type.slice(1)"></button>
+                        <a href="#pizzas-box">
+                        <button :class="{ 'button': true, 'selected': selectedFilter.medium.type === type }" 
+                                @click="filterPizzas('medium', 'type', type)" style="padding: 8px 12px 10px 5px; "
+                                ><img :src="typeImg(type)" width="35px" style="margin-bottom: -4px; padding-right: 5px;"><span x-text="type.charAt(0).toUpperCase() + type.slice(1)"></span>
+                            </button>
+                        </a>
                     </template>
                     <p><b>Flavours:</b></p>
                     <template x-for="flavour in filterOptions.flavour">
+                        <a href="#pizzas-box">
                         <button :class="{ 'button': true, 'selected': selectedFilter.medium.flavour === flavour }"
                             @click="filterPizzas('medium', 'flavour', flavour)" x-text="flavour"></button>
+                        </a>
                     </template>
                 </section>
             </div>
@@ -126,16 +136,20 @@
                 <section>
                     <p><b>Type:</b></p>
                     <template x-for="type in filterOptions.type" :key="type">
-                        <button :class="{ 'button': true, 'selected': selectedFilter.large.type === type }"
-                            @click="filterPizzas('large', 'type', type)"
-                            x-text="type.charAt(0).toUpperCase() + type.slice(1)"><img src="images/tomato.jpg"
-                                width="50px">
-                            Tomato</button>
+                        <a href="#pizzas-box">
+                        <button :class="{ 'button': true, 'selected': selectedFilter.large.type === type }" 
+                                @click="filterPizzas('large', 'type', type)" style="padding: 8px 12px 10px 5px; "
+                                ><img :src="typeImg(type)" width="35px" style="margin-bottom: -4px; padding-right: 5px;"><span x-text="type.charAt(0).toUpperCase() + type.slice(1)"></span>
+                        </button>
+                        </a>
                     </template>
                     <p><b>Flavours:</b></p>
                     <template x-for="flavour in filterOptions.flavour" :key="flavour">
+                    <a href="#pizzas-box">
                         <button :class="{ 'button': true, 'selected': selectedFilter.large.flavour === flavour }"
-                            @click="filterPizzas('large', 'flavour', flavour)" x-text="flavour"></button>
+                            @click="filterPizzas('large', 'flavour', flavour)" x-text="flavour">
+                        </button>
+                    </a>
                     </template>
                 </section>
             </div>
@@ -143,7 +157,7 @@
 
         <!-- Fetch All Pizzas -->
 
-        <div class="pizzas-box">
+        <div class="pizzas-box" id="pizzas-box">
             <!-- Show All -->
             <button class="show-all" @click="resetFilter()">Show All</button>
             <div class="pizzas-list">
@@ -165,10 +179,10 @@
                             </div>
                             <div style="display: flex;">
                                 <button class="order-btn" x-on:click="addPizzaToCart(pizza.id)">Order</button>
-                                <button class="qty" style="cursor: text;" x-text="">1</button>
+                                <button class="qty" style="cursor: text;">1</button>
                                 <div class="qty-btn" style="display: grid;">
-                                    <button class="qty-btn1" x-on:click="addPizzaToCart(pizza.id)"><span class="">+</span></button>
-                                    <button class="qty-btn2" x-on:click="removePizzaFromCart(pizza.id)"><span>-</span></button>
+                                    <button class="qty-btn1" x-on:click=""><span class="">+</span></button>
+                                    <button class="qty-btn2" x-on:click=""><span>-</span></button>
                                 </div>
                             </div>
                         </div>
