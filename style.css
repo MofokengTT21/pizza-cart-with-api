@@ -120,7 +120,7 @@ tbody tr:hover {
 .small_pizza {
   background-color: #ffffff;
   box-shadow: sol #965fe3;
-  flex:2;
+  flex:2.3;
 }
 .medium_pizza {
   background-color: #ffffff;
@@ -234,9 +234,9 @@ button {
   font-weight: bold;
 }
 @media (max-width: 960px) {
-  .small_pizza,{
+  /* .small_pizza,{
     flex: 0 0 58%;
-  }
+  } */
 }
 @media (min-width: 780px) and (max-width: 990px) {
   .pizzas-list {
@@ -324,7 +324,7 @@ button {
   table{
     transform: scale(0.90);
   }
-  .small_pizza{
+  .small_pizjza{
     flex: 0 0 80%;
   }
 
