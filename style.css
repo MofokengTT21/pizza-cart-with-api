@@ -25,7 +25,7 @@ h1 {
 .content {
   background-color: #ffffff;
   font-family: Verdana, Geneva, Tahoma, sans-serif;
-  max-width: 1280px;
+  max-width: 1220px;
   margin: auto;
   padding: 15px;
 }
@@ -318,9 +318,6 @@ button {
     flex:8;
     width: 45vw;
   }
-  .pizza-list-heading {
-    font-size:20px;
-  }
   table{
     transform: scale(0.90);
   }
@@ -328,14 +325,27 @@ button {
     flex: 0 0 80%;
   }
 
+
 }
 
-@media (max-width: 428px) {
+@media (max-width: 435px) {
   .pizzas-list {
     justify-content: space-evenly;
   }
   .fetched-imgs {
-    width:20vw;
+    width:29vw;
+  }
+  .pizza-list-heading {
+    font-size:17px;
+  }
+  .all-pizzas-type {
+    font-size: 15px;
+  }
+  .all-pizzas-size {
+    font-size: 14px;
+  }
+  .price {
+    font-size: 14px;
   }
   .small_pizza{
     flex: 0 0 80%;
