@@ -62,7 +62,7 @@ tbody tr:hover {
   border-radius: 100%;
   width: 25px;
   height: 24px;
-  padding-top:2px ;
+  padding-top:0.1em ;
   margin: -25px -24px 0 -5px;
   position: absolute;
   font-size: medium;
@@ -260,7 +260,7 @@ button {
     width: 100%;
   }
   .content {
-    margin: 0;
+    margin: 13px 0;
     padding:0px;
   }
 }
@@ -290,5 +290,10 @@ button {
   }
   .fetched-imgs {
     width:20vw;
+  }
+}
+@media (max-width: 370px) {
+  .logo-h1 {
+    font-size:8.3vw;
   }
 }
