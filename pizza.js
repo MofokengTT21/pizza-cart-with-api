@@ -11,44 +11,52 @@ document.addEventListener("alpine:init", () => {
         username: 'MofokengTT21',
         cartId: 'euYIRq2Kn8',
         cartPizzas: [],
-        totalQty: [],
         sumQty: 0.00,
         pizzaQty: {},
+
         showQty() {
-            const cartQty = this.pizza.qty;
-            this.totalQty = cartQty;
-            this.sumQty = this.totalQty.reduce((accumulator, currentValue) => accumulator + currentValue, 0);
+            this.sumQty = this.cartPizzas.reduce((accumulator, pizza) => accumulator + pizza.qty, 0);
         },
 
         cartTotal: 0.00,
 
-        
         getCart() {
             const getCartURL = `https://pizza-api.projectcodex.net/api/pizza-cart/${this.cartId}/get`;
             return axios.get(getCartURL);
         },
 
         addPizza(pizzaId) {
-
-        return axios.post('https://pizza-api.projectcodex.net/api/pizza-cart/add', {
-            "cart_code" : this.cartId,
-            "pizza_id" : pizzaId
-        })
+            return axios.post('https://pizza-api.projectcodex.net/api/pizza-cart/add', {
+                "cart_code": this.cartId,
+                "pizza_id": pizzaId
+            }).then(() => {
+                this.showCartData();
+            });
         },
 
         removePizza(pizzaId) {
-
             return axios.post('https://pizza-api.projectcodex.net/api/pizza-cart/remove', {
-                "cart_code" : this.cartId,
-                "pizza_id" : pizzaId
-            })
+                "cart_code": this.cartId,
+                "pizza_id": pizzaId
+            }).then(() => {
+                this.showCartData();
+            });
         },
 
         showCartData() {
             this.getCart().then(result => {
                 const cartData = result.data;
-                this.cartPizzas = result.data.pizzas;
+                this.cartPizzas = cartData.pizzas.reduce((acc, pizza) => {
+                    const existingPizza = acc.find(p => p.id === pizza.id);
+                    if (existingPizza) {
+                        existingPizza.qty += pizza.qty;
+                    } else {
+                        acc.push(pizza);
+                    }
+                    return acc;
+                }, []);
                 this.cartTotal = cartData.total.toFixed(2);
+                this.showQty(); // Update quantity after getting cart data
             });
         },
 
@@ -63,23 +71,16 @@ document.addEventListener("alpine:init", () => {
         },
 
         addPizzaToCart(pizzaId) {
-            this
-            .addPizza(pizzaId)
-            .then(() => {
-                this.showCartData();
-            })
+            this.addPizza(pizzaId);
         },
+
         removePizzaFromCart(pizzaId) {
-            this
-            .removePizza(pizzaId)
-            .then(() => {
-                this.showCartData();
-            })
+            this.removePizza(pizzaId);
         },
 
         incrementQty(pizzaId) {
             this.pizzaQty[pizzaId] = (this.pizzaQty[pizzaId] ?? 1) + 1;
-        },        
+        },
 
         decrementQty(pizzaId) {
             if (this.pizzaQty[pizzaId] > 1) {
@@ -95,9 +96,17 @@ document.addEventListener("alpine:init", () => {
 
         orderPizzas(pizzaId) {
             const qty = this.pizzaQty[pizzaId] || 1;
-            for (let i = 0; i < qty; i++) {
-                this.addPizzaToCart(pizzaId);
-            }
+            let i = 0;
+        
+            const addNextPizza = () => {
+                if (i < qty) {
+                    this.addPizza(pizzaId).then(() => {
+                        i++;
+                    });
+                    setTimeout(addNextPizza, 300);
+                }
+            };
+            addNextPizza();
         },
 
         filterPizzas(size = this.selectedFilter.size, criteria, value) {
@@ -135,16 +144,18 @@ document.addEventListener("alpine:init", () => {
             type: ['meaty', 'chicken', 'veggie'],
             flavour: ['Margherita', 'Garlic & Mushroom', 'Chicken & Mushroom', 'Regina', 'Sweet Chilli Chicken', '3 Cheese', 'Four Season', 'Hawaiian', 'Tikka Chicken']
         },
+
         pizzaImg(pizza) {
             return `images/pizza-${pizza.flavour.replace(/ /g, '-').toLowerCase()}.jpeg`;
         },
+
         typeImg(type) {
             return `images/${type}.png`;
         },
+
         totalQty() {
             return this.cartPizzas.reduce((sum, pizza) => sum + pizza.qty, 0);
         },
 
-        
     }));
 });
