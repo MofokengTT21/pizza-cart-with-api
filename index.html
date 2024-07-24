@@ -29,7 +29,7 @@
                 <span class="basket-qty" x-text="totalQty()"></span>
             </button>
         </div>
-        <table x-show="showBasket">
+        <table x-show="showBasket && cartPizzas.length > 0">
             <thead>
                 <tr>
                     <td>Pizza</td>
