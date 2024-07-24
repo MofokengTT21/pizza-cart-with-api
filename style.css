@@ -268,7 +268,7 @@ button {
   }
   td.quantity {
     padding: 25px;
-    min-width: 80px;
+    min-width:34px;
   }
   td.price-td {
     min-width:80px;
