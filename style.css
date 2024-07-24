@@ -69,7 +69,7 @@ tbody tr:hover {
   font-weight: bolder;
 }
 .add-minus-btn {
-  background-color: rgb(0, 0, 0);
+  background-color: rgb(223, 0, 0);
   color: white;
   font-weight: bold;
   font-size: medium;
@@ -121,9 +121,7 @@ tbody tr:hover {
   overflow-x: auto;
   scroll-snap-type: x mandatory;
 }
-.pizzas::-webkit-scrollbar {
-  /* display:none;  */
-}
+
 .small_pizza,
 .medium_pizza,
 .large_pizza {
@@ -157,9 +155,11 @@ button {
   padding: 8px;
   border-radius: 30px;
   box-shadow: 0 1px 6px rgba(0, 0, 0, 0.2);
+  font-size: 14px;
+  font-weight: 500
 }
 .button.selected {
-  background-color: rgb(255, 22, 22);
+  background-color: rgb(223, 0, 0);
   color: white;
 }
 .button:not(.selected):hover {
@@ -168,13 +168,18 @@ button {
 
 .show-all {
   border: none;
-  background-color: rgb(0, 0, 0);
-  color: white;
+  background-color: rgb(255, 255, 255);
+  color: rgb(7, 7, 7);
   cursor: pointer;
   padding: 15px;
   border-radius: 30px;
   font-weight: bold;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.3);
 }
+.show-all:hover {
+  transform: scale(1.1);
+}
+
 .fetched-imgs {
   width: 165px;
 }
@@ -187,14 +192,14 @@ button {
 }
 .qty {
   flex: 0.6;
-  border-left: 0.5px solid rgb(128, 128, 128);
-  border-right: 0.5px solid rgb(128, 128, 128);
+  border-left: 0.5px solid white;
+  border-right: 0.5px solid white;
 }
 .qty,
 .order-btn,
 .qty-btn1,
 .qty-btn2 {
-  background-color: rgb(0, 0, 0);
+  background-color: rgb(223, 0, 0);
   color: white;
   font-size: medium;
   font-weight: bold;
@@ -224,6 +229,9 @@ button {
   }
   .basket-btn {
     font-size: medium;
+  }
+  .pizzas::-webkit-scrollbar {
+    display:none; 
   }
 }
 @media (min-width: 780px) and (max-width: 990px) {
