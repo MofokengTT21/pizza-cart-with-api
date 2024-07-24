@@ -62,6 +62,48 @@ document.addEventListener("alpine:init", () => {
             this.showCartData();
         },
 
+        addPizzaToCart(pizzaId) {
+            this
+            .addPizza(pizzaId)
+            .then(() => {
+                this.showCartData();
+            })
+        },
+        removePizzaFromCart(pizzaId) {
+            this
+            .removePizza(pizzaId)
+            .then(() => {
+                this.showCartData();
+            })
+        },
+
+        incrementQty(pizzaId) {
+            if (!this.pizzaQty[pizzaId]) {
+                this.pizzaQty[pizzaId] = 2;
+            } else {
+                this.pizzaQty[pizzaId]++;
+            }
+        },        
+
+        decrementQty(pizzaId) {
+            if (this.pizzaQty[pizzaId] > 1) {
+                this.pizzaQty[pizzaId]--;
+            }
+        },
+
+        updatePizzaQty() {
+            this.cartPizzas.forEach(pizza => {
+                this.pizzaQty[pizza.id] = pizza.qty;
+            });
+        },
+
+        orderPizzas(pizzaId) {
+            const qty = this.pizzaQty[pizzaId] || 1;
+            for (let i = 0; i < qty; i++) {
+                this.addPizzaToCart(pizzaId);
+            }
+        },
+
         filterPizzas(size = this.selectedFilter.size, criteria, value) {
             if (this.selectedFilter.size !== size) {
                 this.selectedFilter[this.selectedFilter.size] = { type: '', flavour: '' };

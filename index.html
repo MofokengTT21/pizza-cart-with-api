@@ -178,11 +178,11 @@
                                 <b class="price">R<span x-text="pizza.price"></span></b>
                             </div>
                             <div style="display: flex;">
-                                <button class="order-btn" x-on:click="addPizzaToCart(pizza.id)">Order</button>
-                                <button class="qty" style="cursor: text;">1</button>
+                                <button class="order-btn" x-on:click="orderPizzas(pizza.id)">Order</button>
+                                <button class="qty" style="cursor: text;" x-text="pizzaQty[pizza.id] || 1"></button>
                                 <div class="qty-btn" style="display: grid;">
-                                    <button class="qty-btn1" x-on:click=""><span class="">+</span></button>
-                                    <button class="qty-btn2" x-on:click=""><span>-</span></button>
+                                    <button class="qty-btn1" x-on:click="incrementQty(pizza.id)"><span class="">+</span></button>
+                                    <button class="qty-btn2" x-on:click="decrementQty(pizza.id)"><span>-</span></button>
                                 </div>
                             </div>
                         </div>
