@@ -8,8 +8,9 @@ document.addEventListener("alpine:init", () => {
       medium: { type: "", flavour: "" },
       large: { type: "", flavour: "" },
     },
-    username: "MofokengTT21",
-    cartId: "euYIRq2Kn8",
+    username: "",
+    usernameInput:"",
+    cartId: "",
     showPopup: false,
     cartPizzas: [],
     sumQty: 0.0,
@@ -24,6 +25,16 @@ document.addEventListener("alpine:init", () => {
     },
 
     cartTotal: 0.0,
+    paymentAmount: '',
+    message: '',
+    messagePaid: '',
+    createCart() {
+      const createCartURL = `https://pizza-api.projectcodex.net/api/pizza-cart/create?username=${this.username}`
+      return axios.get(createCartURL)
+        .then(result => {
+          this.cartId = result.data.cart_code;
+        });
+    },
 
     getCart() {
       const getCartURL = `https://pizza-api.projectcodex.net/api/pizza-cart/${this.cartId}/get`;
@@ -52,6 +63,14 @@ document.addEventListener("alpine:init", () => {
         });
     },
 
+    pay(amount) {
+      return axios.post('https://pizza-api.projectcodex.net/api/pizza-cart/pay',
+        {
+          "cart_code": this.cartId,
+          amount
+        })
+    },
+
     showCartData() {
       this.getCart().then((result) => {
         const cartData = result.data;
@@ -76,8 +95,13 @@ document.addEventListener("alpine:init", () => {
           this.pizzas = result.data.pizzas;
           this.filteredPizzas = this.pizzas;
         });
-
-      this.showCartData();
+      if (!this.cartId) {
+        this
+          .createCart()
+          .then((result) => {
+            this.showCartData();
+          })
+      }
     },
 
     addPizzaToCart(pizzaId) {
@@ -86,6 +110,28 @@ document.addEventListener("alpine:init", () => {
 
     removePizzaFromCart(pizzaId) {
       this.removePizza(pizzaId);
+    },
+
+    payForCart() {
+      this
+        .pay(this.paymentAmount)
+        .then(result => {
+          if (result.data.status == 'failure') {
+            this.message = "Payment unsuccessful";
+            setTimeout(() => this.message = '', 3000);
+          } else {
+            this.messagePaid = "Payment successful";
+            setTimeout(() => {
+              this.message = '';
+              this.cartPizzas = [];
+              this.cartTotal = 0.00;
+              this.cartId = '',
+                this.createCart(),
+                this.paymentAmount = '',
+                this.messagePaid = ''
+            }, 3000);
+          }
+        })
     },
 
     incrementQty(pizzaId) {
@@ -198,8 +244,11 @@ document.addEventListener("alpine:init", () => {
     },
 
     submitUsername() {
-      alert('Username submitted: ' + this.username); // Replace with your own submission logic
+      this.username = this.usernameInput;
       this.closePopup();
+    },
+    stopPropagation(event) {
+      event.stopPropagation();
     },
   }));
 });

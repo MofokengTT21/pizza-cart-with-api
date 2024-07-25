@@ -357,7 +357,6 @@ button {
   }
 }
 
-/* Style for Cart Total */
 .cart-total {
   font-size: 20px;
   color: #333;
@@ -389,7 +388,7 @@ button {
 }
 
 .pay-button:hover {
-  background-color: #0056b3; 
+  transform: scale(1.05);
 }
 
 /* Pop-up overlay */

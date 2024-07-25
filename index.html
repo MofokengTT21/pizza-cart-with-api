@@ -71,28 +71,33 @@
             <tfoot>
                 <tr>
                     <td colspan="4" style="text-align: right; border-bottom: none;">
-                        <input class="amount" type="number" name="" id="">
-                        <button class="pay-button" x-on:click="pay()">Pay</button>
+                        <span style="color: rgb(223, 0, 0);" x-text="message"></span>
+                        <span style="padding-right: 20px; color: rgb(0, 201, 0);" x-text="messagePaid"></span>
+                        <input class="amount" type="number" x-model="paymentAmount">
+                        <button class="pay-button" x-on:click="payForCart()">Pay</button>
                     </td>
                 </tr>
             </tfoot>
         </table>
         <!-- Pop-up box -->
-        <div x-show="showPopup && !username" @click.outside="closePopup" class="popup-overlay">
-            <div class="popup-box">
-                <button class="popup-close-btn" x-on:click="closePopup()">x</button>
+        <div x-show="showPopup && !username" class="popup-overlay" @click="closePopup">
+            <div class="popup-box" @click.stop>
+                <button class="popup-close-btn" type="button" x-on:click="closePopup()">x</button>
                 <img src="images/image.png" alt="" style="width: 6em; margin-top: 35px;">
                 <h2 class="logo-h1" style="margin-top: 5px;">PERFERCT<i style="color: red;">PIZZA</i></h2>
-                <p class="popup-description">Sign into <span style="font-weight: bold;">Perfect <i>Pizza</i></span> to
-                    add pizza to <span style="font-weight: bold;">Basket</span><img src="images/basket.png" alt=""
-                        style="width: 1.5em; margin: 0 0 -5px 6px;"></p>
+                <p class="popup-description">
+                    Sign into <span style="font-weight: bold;">Perfect <i>Pizza</i></span> to
+                    add pizza to <span style="font-weight: bold;">Basket</span>
+                    <img src="images/basket.png" alt="" style="width: 1.5em; margin: 0 0 -5px 6px;">
+                </p>
                 <p class="popup-username">Username:</p>
                 <div style="display: flex;">
-                    <input type="text" x-model="username" class="popup-input" placeholder="Username">
+                    <input type="text" x-model="usernameInput" class="popup-input" placeholder="Username" @click.stop>
                     <button x-on:click="submitUsername()" class="popup-submit-btn">Sign In</button>
                 </div>
             </div>
         </div>
+        
         <!-- Select Pizza Size -->
         <div class="pizzas">
             <!-- Small Pizzas Section -->

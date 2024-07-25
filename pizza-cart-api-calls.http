@@ -32,3 +32,13 @@ GET https://pizza-api.projectcodex.net/api/pizza-cart/username/Tshepo
 
 ### GET all the active carts for a user
 GET https://pizza-api.projectcodex.net/api/pizza-cart/username/Tshepo/active
+
+### Pay for pizza from the cart
+
+POST  https://pizza-api.projectcodex.net/api/pizza-cart/pay
+Content-Type: application/json
+
+{
+    "cart_code": "euYIRq2Kn8",
+    "amount": 600
+}
