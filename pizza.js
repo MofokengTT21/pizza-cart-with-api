@@ -9,9 +9,10 @@ document.addEventListener("alpine:init", () => {
       large: { type: "", flavour: "" },
     },
     username: "",
-    usernameInput:"",
+    usernameInput: "",
     cartId: "",
     showPopup: false,
+    profile: false,
     cartPizzas: [],
     sumQty: 0.0,
     pizzaQty: {},
@@ -25,15 +26,15 @@ document.addEventListener("alpine:init", () => {
     },
 
     cartTotal: 0.0,
-    paymentAmount: '',
-    message: '',
-    messagePaid: '',
+    paymentAmount: "",
+    message: "",
+    messagePaid: "",
     createCart() {
-      const createCartURL = `https://pizza-api.projectcodex.net/api/pizza-cart/create?username=${this.username}`
-      return axios.get(createCartURL)
-        .then(result => {
-          this.cartId = result.data.cart_code;
-        });
+      const createCartURL = `https://pizza-api.projectcodex.net/api/pizza-cart/create?username=${this.username}`;
+      return axios.get(createCartURL).then((result) => {
+        this.cartId = result.data.cart_code;
+        localStorage.setItem("cartId", this.cartId);
+      });
     },
 
     getCart() {
@@ -64,11 +65,13 @@ document.addEventListener("alpine:init", () => {
     },
 
     pay(amount) {
-      return axios.post('https://pizza-api.projectcodex.net/api/pizza-cart/pay',
+      return axios.post(
+        "https://pizza-api.projectcodex.net/api/pizza-cart/pay",
         {
-          "cart_code": this.cartId,
-          amount
-        })
+          cart_code: this.cartId,
+          amount,
+        }
+      );
     },
 
     showCartData() {
@@ -89,18 +92,23 @@ document.addEventListener("alpine:init", () => {
     },
 
     init() {
+      this.username = localStorage.getItem("username") || "";
+      this.usernameInput = this.username;
+      this.cartId = localStorage.getItem("cartId") || "";
+
       axios
         .get("https://pizza-api.projectcodex.net/api/pizzas")
         .then((result) => {
           this.pizzas = result.data.pizzas;
           this.filteredPizzas = this.pizzas;
         });
-      if (!this.cartId) {
-        this
-          .createCart()
-          .then((result) => {
-            this.showCartData();
-          })
+
+      if (this.cartId) {
+        this.showCartData();
+      } else if (this.username) {
+        this.createCart().then((result) => {
+          this.showCartData();
+        });
       }
     },
 
@@ -113,25 +121,23 @@ document.addEventListener("alpine:init", () => {
     },
 
     payForCart() {
-      this
-        .pay(this.paymentAmount)
-        .then(result => {
-          if (result.data.status == 'failure') {
-            this.message = "Payment unsuccessful";
-            setTimeout(() => this.message = '', 3000);
-          } else {
-            this.messagePaid = "Payment successful";
-            setTimeout(() => {
-              this.message = '';
-              this.cartPizzas = [];
-              this.cartTotal = 0.00;
-              this.cartId = '',
-                this.createCart(),
-                this.paymentAmount = '',
-                this.messagePaid = ''
-            }, 3000);
-          }
-        })
+      this.pay(this.paymentAmount).then((result) => {
+        if (result.data.status == "failure") {
+          this.message = "Payment unsuccessful";
+          setTimeout(() => (this.message = ""), 3000);
+        } else {
+          this.messagePaid = "Payment successful";
+          setTimeout(() => {
+            this.message = "";
+            this.cartPizzas = [];
+            this.cartTotal = 0.0;
+            (this.cartId = ""),
+              this.createCart(),
+              (this.paymentAmount = ""),
+              (this.messagePaid = "");
+          }, 3000);
+        }
+      });
     },
 
     incrementQty(pizzaId) {
@@ -238,17 +244,25 @@ document.addEventListener("alpine:init", () => {
     openPopup() {
       this.showPopup = true;
     },
-
+    profileBtn() {
+      this.profile = true;
+    },
+    
     closePopup() {
       this.showPopup = false;
+      this.profile = false;
     },
 
-    submitUsername() {
+    async submitUsername() {
       this.username = this.usernameInput;
-      this.closePopup();
-    },
-    stopPropagation(event) {
-      event.stopPropagation();
-    },
+      localStorage.setItem('username', this.username);  
+      
+      await this.createCart(); 
+      await this.showCartData();  
+    
+      localStorage.setItem('showPopup', 'true'); 
+      location.reload();  
+    }
+    ,
   }));
 });
