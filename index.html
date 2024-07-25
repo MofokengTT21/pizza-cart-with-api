@@ -101,7 +101,7 @@
                 <p class="popup-username">Username:</p>
                 <div style="display: flex;">
                     <input type="text" x-model="usernameInput" class="popup-input" placeholder="Username" @click.stop>
-                    <button x-on:click="submitUsername()" class="popup-submit-btn">Sign In</button>
+                    <button x-on:click="submitUsername()" class="popup-submit-btn" x-text="signInBtn"></button>
                 </div>
             </div>
         </div>

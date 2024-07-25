@@ -11,6 +11,7 @@ document.addEventListener("alpine:init", () => {
     username: "",
     usernameInput: "",
     cartId: "",
+    signInBtn: "",
     showPopup: false,
     profile: false,
     cartPizzas: [],
@@ -95,7 +96,7 @@ document.addEventListener("alpine:init", () => {
       this.username = localStorage.getItem("username") || "";
       this.usernameInput = this.username;
       this.cartId = localStorage.getItem("cartId") || "";
-
+      this.signIn();
       axios
         .get("https://pizza-api.projectcodex.net/api/pizzas")
         .then((result) => {
@@ -247,22 +248,37 @@ document.addEventListener("alpine:init", () => {
     profileBtn() {
       this.profile = true;
     },
-    
+
     closePopup() {
       this.showPopup = false;
       this.profile = false;
     },
+    signIn() {
+      if (!this.usernameInput) {
+        this.signInBtn = "Sign In";
+        
+
+      } else {
+        this.signInBtn = "Sign Out";
+      }
+      this.signOut();
+    },
+    signOut() {
+      if (this.signInBtn === "Sign Out") {
+        this.usernameInput = '';
+      }
+    },
 
     async submitUsername() {
-      this.username = this.usernameInput;
-      localStorage.setItem('username', this.username);  
       
-      await this.createCart(); 
-      await this.showCartData();  
-    
-      localStorage.setItem('showPopup', 'true'); 
-      location.reload();  
-    }
-    ,
+      this.username = this.usernameInput;
+      localStorage.setItem("username", this.username);
+
+      await this.createCart();
+      await this.showCartData();
+
+      localStorage.setItem("showPopup", "true");
+      location.reload();
+    },
   }));
 });
