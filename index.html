@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="style.css">
 </head>
 
-<body x-data="pizzaCart" x-init="init()">
+<body x-data="pizzaCart" x-init="init()" >
 
 
     <header x-data="{ showPopup: false }">
@@ -19,12 +19,10 @@
             <img class="logo-img" src="images/image.png" width="80px" height="80px">
             <h1 class="logo-h1" style="margin-top: -10px;">PERFERCT<i style="color: red;">PIZZA</i></h1>
         </div>
-        <div style="color: white; float: right; display: flex; align-items: center; margin: -60px 0px; cursor: pointer;" x-on:click="profileBtn()">
-            Profile
-            <button style="margin-left: 10px; padding: 4px 5px 2px; border-radius: 100%; background-color: white;" >
-              <img src="images/pizza-four-season.png" width="30">
+            <button style="float: right; margin-left: 10px; padding: 0; border-radius: 100%; background: transparent; margin: -63px 0px; cursor: pointer;"  x-on:click="profileBtn()">
+              <img src="images/me.jpeg" width="45">
             </button>
-        </div>
+        
           
 
     </header>
@@ -88,20 +86,20 @@
             </tfoot>
         </table>
         <!-- Pop-up box -->
-        <div x-show="showPopup && !username || profile" class="popup-overlay" @click="closePopup">
+        <div x-show="showPopup && !username || profile" class="popup-overlay" @click="closePopup" >
             <div class="popup-box" @click.stop>
                 <button class="popup-close-btn" type="button" x-on:click="closePopup()">x</button>
                 <img src="images/image.png" alt="" style="width: 6em; margin-top: 35px;">
                 <h2 class="logo-h1" style="margin-top: 5px;">PERFERCT<i style="color: red;">PIZZA</i></h2>
-                <p class="popup-description">
-                    Sign into <span style="font-weight: bold;">Perfect <i>Pizza</i></span> to
+                    <p class="popup-description" x-show="!username">
+                    Sign into <span style="font-weight: bold;">Perfect Pizza</span> to
                     add pizza to <span style="font-weight: bold;">Basket</span>
                     <img src="images/basket.png" alt="" style="width: 1.5em; margin: 0 0 -5px 6px;">
                 </p>
-                <p class="popup-username">Username:</p>
+                <p class="popup-username">Username: <span x-text="username" style="font-size: large;"></span></p>
                 <div style="display: flex;">
-                    <input type="text" x-model="usernameInput" class="popup-input" placeholder="Username" @click.stop>
-                    <button x-on:click="submitUsername()" class="popup-submit-btn" x-text="signInBtn"></button>
+                    <input type="text" x-model="usernameInput" class="popup-input" placeholder="Username" x-show="!username">
+                    <button x-on:click="submitUsername()" x-bind:class=" !username ? 'popup-submit-btn' : 'popup-submit-btn2'"  x-text="signInBtn"></button>
                 </div>
             </div>
         </div>

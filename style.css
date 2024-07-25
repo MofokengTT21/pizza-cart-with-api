@@ -377,6 +377,9 @@ button {
   border-radius: 0 3px 3px 0 ;
   cursor: pointer;
 }
+.amount:focus {
+  outline:none;
+}
 .amount {
   border: 1.5px solid #000000;
   margin-right: -8px;
@@ -443,11 +446,12 @@ button {
 
 .popup-input {
   padding: 10px;
-  border: 1px solid #ffffff;
+  border: none;
   border-radius: 2px 0 0 2px;
-  flex: 2;
+  flex:2;
   font-weight: 600;
   margin-right: -2px;
+  
 }
 .popup-input:focus{
   outline:none;
@@ -460,8 +464,19 @@ button {
   color: white;
   border-radius: 0 2px 2px 0;
   cursor: pointer;
+  width: 100%;
 }
-
+.popup-submit-btn2 {
+  font-weight: bold;
+  padding: 0px 20px;
+  border: none;
+  background-color: red;
+  color: white;
+  border-radius: 0 2px 2px 0;
+  cursor: pointer;
+  width: 100%;
+  height:3em;
+}
 .popup-submit-btn:hover {
   transform: scale(1.06);
 }

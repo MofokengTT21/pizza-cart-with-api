@@ -158,7 +158,7 @@ document.addEventListener("alpine:init", () => {
     },
 
     orderPizzas(pizzaId) {
-      if (!this.incrementUsed && !this.pizzaQty[pizzaId]) {
+      if (!this.pizzaQty[pizzaId]) {
         this.incrementQty(pizzaId);
       }
       const qty = this.pizzaQty[pizzaId] || 1;
