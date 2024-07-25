@@ -10,6 +10,7 @@ document.addEventListener("alpine:init", () => {
     },
     username: "MofokengTT21",
     cartId: "euYIRq2Kn8",
+    showPopup: false,
     cartPizzas: [],
     sumQty: 0.0,
     pizzaQty: {},
@@ -187,6 +188,18 @@ document.addEventListener("alpine:init", () => {
 
     totalQty() {
       return this.cartPizzas.reduce((sum, pizza) => sum + pizza.qty, 0);
+    },
+    openPopup() {
+      this.showPopup = true;
+    },
+
+    closePopup() {
+      this.showPopup = false;
+    },
+
+    submitUsername() {
+      alert('Username submitted: ' + this.username); // Replace with your own submission logic
+      this.closePopup();
     },
   }));
 });
