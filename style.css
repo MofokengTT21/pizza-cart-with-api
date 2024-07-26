@@ -496,8 +496,14 @@ button {
   gap: 15px;
   padding: 10px;
   white-space: nowrap;
-}
+  white-space: nowrap;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
 
+}
+.featured-pizzas-container::-webkit-scrollbar {
+  display: none;
+}
 .featured-pizza-box {
   flex: 0 0 auto;
   border-radius: 15px;

@@ -292,23 +292,7 @@
         </div>
     </div>
     <script src="pizza.js"></script>
-    <script>
-        const container = document.querySelector('.featured-pizzas-container');
-        let scrollAmount = 0;
-        let scrollSpeed = 1; // Adjust the speed as needed
-
-        function scrollContainer() {
-            scrollAmount += scrollSpeed;
-            if (scrollAmount >= container.scrollWidth / 2) {
-                scrollAmount = 0; // Reset scroll position when halfway
-            }
-            container.scrollLeft = scrollAmount;
-            requestAnimationFrame(scrollContainer);
-        }
-
-        scrollContainer(); // Start the scrolling animation
-
-    </script>
+    
 </body>
 
 </html>
