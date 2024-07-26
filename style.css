@@ -56,8 +56,8 @@ tbody tr:hover {
   transform: scale(1.02);
 }
 .pizza-cart-img {
-  margin-top: 8px; 
-  width: 120px
+  margin-top: 8px;
+  width: 120px;
 }
 .basket-btn {
   font-size: medium;
@@ -71,15 +71,15 @@ tbody tr:hover {
   border-radius: 100%;
   width: 25px;
   height: 24px;
-  padding-top:0.1em ;
+  padding-top: 0.1em;
   margin: -25px -24px 0 -5px;
   position: absolute;
   font-size: medium;
   font-weight: bolder;
 }
 .cart-qty {
-  padding: 10px; 
-  font-weight:600
+  padding: 10px;
+  font-weight: 600;
 }
 .add-minus-btn {
   background-color: rgb(223, 0, 0);
@@ -94,7 +94,7 @@ tbody tr:hover {
   transform: scale(1.1);
 }
 .pizza-price {
-  font-size:20px;
+  font-size: 20px;
 }
 .box,
 .pizzas-box {
@@ -120,7 +120,7 @@ tbody tr:hover {
 .small_pizza {
   background-color: #ffffff;
   box-shadow: sol #965fe3;
-  flex:2.3;
+  flex: 2.3;
 }
 .medium_pizza {
   background-color: #ffffff;
@@ -144,7 +144,7 @@ tbody tr:hover {
   box-sizing: border-box;
 }
 .pizzas::-webkit-scrollbar {
-  display:none; 
+  display: none;
 }
 .pizza-list-heading {
   width: 23.9vw;
@@ -166,7 +166,7 @@ button {
   border-radius: 30px;
   box-shadow: 0 1px 6px rgba(0, 0, 0, 0.2);
   font-size: 14px;
-  font-weight: 500
+  font-weight: 500;
 }
 .button.selected {
   background-color: rgb(223, 0, 0);
@@ -243,17 +243,16 @@ button {
     display: flex;
   }
   .fetched-imgs {
-    width:13vw;
+    width: 13vw;
   }
   .pizza-description-box {
     width: 25vw;
   }
-  
 }
 
 @media (max-width: 780px) {
   .fetched-imgs {
-    width:13vw;
+    width: 13vw;
   }
   .pizza-description-box {
     width: 22vw;
@@ -264,21 +263,21 @@ button {
     justify-content: space-evenly;
   }
   table {
-    font-size:14px;
+    font-size: 14px;
   }
   td.quantity {
     padding: 25px;
-    min-width:34px;
+    min-width: 34px;
   }
   td.price-td {
-    min-width:80px;
+    min-width: 80px;
   }
   .pizza-cart-img {
     width: 75px;
     padding-right: 8px;
   }
   .add-minus-btn {
-    font-weight:700;
+    font-weight: 700;
     width: 28px;
     height: 28px;
   }
@@ -292,19 +291,18 @@ button {
     font-size: small;
   }
   .fetched-imgs {
-    width:165px;
+    width: 165px;
   }
   .pizza-description-box {
-    width:35vw;
+    width: 35vw;
   }
   .pizza-list-heading {
     width: 100%;
   }
   .content {
     margin: 13px 0;
-    padding:0px;
+    padding: 0px;
   }
-
 }
 @media (max-width: 480px) {
   .pizzas-list {
@@ -312,20 +310,18 @@ button {
   }
   .fetched-imgs {
     flex: 1;
-    width:30vw;
+    width: 30vw;
   }
   .pizza-description-box {
-    flex:8;
+    flex: 8;
     width: 45vw;
   }
-  table{
-    transform: scale(0.90);
+  table {
+    transform: scale(0.9);
   }
-  .small_pizjza{
+  .small_pizjza {
     flex: 0 0 80%;
   }
-
-
 }
 
 @media (max-width: 435px) {
@@ -333,10 +329,10 @@ button {
     justify-content: space-evenly;
   }
   .fetched-imgs {
-    width:29vw;
+    width: 29vw;
   }
   .pizza-list-heading {
-    font-size:17px;
+    font-size: 17px;
   }
   .all-pizzas-type {
     font-size: 15px;
@@ -347,13 +343,13 @@ button {
   .price {
     font-size: 14px;
   }
-  .small_pizza{
+  .small_pizza {
     flex: 0 0 80%;
   }
 }
 @media (max-width: 370px) {
   .logo-h1 {
-    font-size:8.3vw;
+    font-size: 8.3vw;
   }
 }
 
@@ -364,28 +360,28 @@ button {
 
 /* Style for Pay Button */
 .pay-button {
-  background-color: #000000; 
+  background-color: #000000;
   color: white;
   border: none;
   padding: 12px 20px;
   text-align: center;
   text-decoration: none;
   display: inline-block;
-  font-size:large;
+  font-size: large;
   font-weight: bold;
   margin: 10px 0;
-  border-radius: 0 3px 3px 0 ;
+  border-radius: 0 3px 3px 0;
   cursor: pointer;
 }
 .amount:focus {
-  outline:none;
+  outline: none;
 }
 .amount {
   border: 1.5px solid #000000;
   margin-right: -8px;
   padding: 10.7px 10px;
   border-radius: 3px 0 0 3px;
-  font-size:large;
+  font-size: large;
   font-weight: bold;
   max-width: 130px;
 }
@@ -396,18 +392,17 @@ button {
 
 /* Pop-up overlay */
 .popup-overlay {
-  display: flex; 
-  position: fixed; 
+  display: flex;
+  position: fixed;
   top: 0;
   left: 0;
-  width: 100%; 
+  width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); 
-  justify-content: center; 
-  align-items: center; 
-  z-index: 1000; 
+  background-color: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
 }
-
 
 .popup-box {
   background: #000000;
@@ -440,21 +435,19 @@ button {
 }
 .popup-description {
   font-size: 16px;
-  padding: 0 20px
+  padding: 0 20px;
 }
-
 
 .popup-input {
   padding: 10px;
   border: none;
   border-radius: 2px 0 0 2px;
-  flex:2;
+  flex: 2;
   font-weight: 600;
   margin-right: -2px;
-  
 }
-.popup-input:focus{
-  outline:none;
+.popup-input:focus {
+  outline: none;
 }
 .popup-submit-btn {
   font-weight: bold;
@@ -475,7 +468,7 @@ button {
   border-radius: 0 2px 2px 0;
   cursor: pointer;
   width: 100%;
-  height:3em;
+  height: 3em;
 }
 .popup-submit-btn:hover {
   transform: scale(1.06);
@@ -490,7 +483,90 @@ button {
   cursor: pointer;
 }
 
-.open-popup-btn:hover {
-  background-color: #0056b3;
+/* Container for horizontal scrolling */
+.featured-pizzas-wrapper {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  background-color: hwb(0 100% 0%);
 }
 
+.featured-pizzas-container {
+  display: flex;
+  gap: 15px;
+  padding: 10px;
+  white-space: nowrap;
+}
+
+.featured-pizza-box {
+  flex: 0 0 auto;
+  border-radius: 15px;
+  box-shadow: 0 2px 8px rgb(255, 254, 254);
+  background: linear-gradient(to right, #636363, black);
+  padding: 25px;
+  box-sizing: border-box;
+  text-align: left;
+  color: rgb(255, 2, 2);
+}
+
+.featured-imgs {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding-right: 15px;
+  height: 100%;
+}
+
+.featured-img {
+  width: 100%;
+  max-width: 105px;
+  border-radius: 10px;
+}
+
+.featured-description-box {
+  margin-top: -20px;
+}
+
+.featured-pizza-heading {
+  font-size: 19px;
+  font-weight: bold;
+}
+
+.featured-pizza-size {
+  text-transform: capitalize;
+  font-weight: bold;
+  color: rgb(255, 255, 255);
+}
+
+.featured-price {
+  font-family: cursive;
+  font-size: 20px;
+  font-weight: bolder;
+  margin-top: 10px;
+}
+
+.featured-order-btn {
+  background-color: rgb(223, 0, 0);
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 2px;
+  cursor: pointer;
+  font-size: 15px;
+  font-weight: bold;
+  margin-top: 10px;
+  transition: transform 0.2s;
+}
+
+.featured-order-btn:hover {
+  transform: scale(1.05);
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}

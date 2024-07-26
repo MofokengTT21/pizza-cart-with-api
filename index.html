@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="style.css">
 </head>
 
-<body x-data="pizzaCart" x-init="init()" >
+<body x-data="pizzaCart" x-init="init()">
 
 
     <header x-data="{ showPopup: false }">
@@ -19,15 +19,21 @@
             <img class="logo-img" src="images/image.png" width="80px" height="80px">
             <h1 class="logo-h1" style="margin-top: -10px;">PERFERCT<i style="color: red;">PIZZA</i></h1>
         </div>
-            <button style="float: right; margin-left: 10px; padding: 0; border-radius: 100%; background: transparent; margin: -63px 0px; cursor: pointer;"  x-on:click="profileBtn()">
-              <img src="images/me.jpeg" width="45">
-            </button>
-        
-          
+        <button
+            style="float: right; margin-left: 10px; padding: 0; border-radius: 100%; background: transparent; margin: -63px 0px; cursor: pointer;"
+            x-on:click="profileBtn()">
+            <img src="images/me.jpeg" width="45">
+        </button>
+
+
 
     </header>
 
+
+
     <div class="content" x-data="{ showBasket: false }">
+
+
         <div class="basket-btn-div" style="display: flex; padding-right: 25px; justify-content: end;">
             <button class="basket-btn"
                 style="display: flex; align-items: center; background-color: rgba(0, 0, 0, 0); border-radius: 30px; position: relative; justify-content: end;"
@@ -85,29 +91,64 @@
                 </tr>
             </tfoot>
         </table>
+        <!-- Featured pizazs -->
+        <div class="featured-pizzas-wrapper">
+            <div class="featured-pizzas-container">
+                <template x-for="pizza in pizzas.slice(0, 4)">
+                    <div class="featured-pizza-box">
+                        <div style="display: flex;">
+                            <div class="featured-imgs">
+                                <img class="featured-img" :src="pizzaImg(pizza)">
+                            </div>
+                            <div class="featured-description-box">
+                                <h2 class="featured-pizza-heading" x-text="pizza.flavour"></h2>
+                                <p class="featured-pizza-size"><b></b><span x-text="pizza.size"></span></p>
+                                <div
+                                    style="display: flex; justify-content: space-between; min-width: 180px; margin-top: -20px; align-items: center;">
+                                    <b class="featured-price">R<span x-text="pizza.price"
+                                            style="font-family:cursive;"></span></b>
+                                    <button class="featured-order-btn"
+                                        x-on:click="orderPizzas(pizza.id) || openPopup()">Order</button>
+                                </div>
+                            </div>
+                        </div>
+                        <button
+                            style="color: rgb(255, 255, 255); font-weight: bold; margin: 15px 0 -3px; background-color: rgb(1, 170, 1); border-radius: 2px; font-size:14px; padding: 3px 7px;">Order
+                            now, Save R20</button>
+                    </div>
+                </template>
+            </div>
+
+        </div>
         <!-- Pop-up box -->
-        <div x-show="showPopup && !username || profile" class="popup-overlay" @click="closePopup" style="display: none;">
+        <div x-show="showPopup && !username || profile" class="popup-overlay" @click="closePopup"
+            style="display: none;">
             <div class="popup-box" @click.stop>
                 <button class="popup-close-btn" type="button" x-on:click="closePopup()">x</button>
                 <img src="images/image.png" alt="" style="width: 6em; margin-top: 35px;">
                 <h2 class="logo-h1" style="margin-top: 5px;">PERFERCT<i style="color: red;">PIZZA</i></h2>
-                    <p class="popup-description" x-show="!username">
+                <p class="popup-description" x-show="!username">
                     Sign into <span style="font-weight: bold;">Perfect Pizza</span> to
                     add pizza to <span style="font-weight: bold;">Basket</span>
                     <img src="images/basket.png" alt="" style="width: 1.5em; margin: 0 0 -5px 6px;">
                 </p>
-              <div  x-show="username">
-                <img src="images/me.jpeg" width="100">
-                <p x-text="username" style="font-size: x-large; font-weight: bold; margin: 10px 0 25px; text-transform: capitalize;"></p>
-              </div>
+                <div x-show="username">
+                    <img src="images/me.jpeg" width="100">
+                    <p x-text="username"
+                        style="font-size: x-large; font-weight: bold; margin: 10px 0 25px; text-transform: capitalize;">
+                    </p>
+                </div>
                 <p class="popup-username" x-show="!username">Username:</p>
                 <div style="display: flex;">
-                    <input type="text" x-model="usernameInput" class="popup-input" placeholder="Enter any username" x-show="!username">
-                    <button x-on:click="submitUsername()" x-bind:class=" !username ? 'popup-submit-btn' : 'popup-submit-btn2'"  x-text="signInBtn"></button>
+                    <input type="text" x-model="usernameInput" class="popup-input" placeholder="Enter any username"
+                        x-show="!username">
+                    <button x-on:click="submitUsername()"
+                        x-bind:class=" !username ? 'popup-submit-btn' : 'popup-submit-btn2'"
+                        x-text="signInBtn"></button>
                 </div>
             </div>
         </div>
-        
+
         <!-- Select Pizza Size -->
         <div class="pizzas">
             <!-- Small Pizzas Section -->
@@ -251,7 +292,23 @@
         </div>
     </div>
     <script src="pizza.js"></script>
+    <script>
+        const container = document.querySelector('.featured-pizzas-container');
+        let scrollAmount = 0;
+        let scrollSpeed = 1; // Adjust the speed as needed
 
+        function scrollContainer() {
+            scrollAmount += scrollSpeed;
+            if (scrollAmount >= container.scrollWidth / 2) {
+                scrollAmount = 0; // Reset scroll position when halfway
+            }
+            container.scrollLeft = scrollAmount;
+            requestAnimationFrame(scrollContainer);
+        }
+
+        scrollContainer(); // Start the scrolling animation
+
+    </script>
 </body>
 
 </html>
