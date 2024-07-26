@@ -96,9 +96,13 @@
                     add pizza to <span style="font-weight: bold;">Basket</span>
                     <img src="images/basket.png" alt="" style="width: 1.5em; margin: 0 0 -5px 6px;">
                 </p>
-                <p class="popup-username">Username: <span x-text="username" style="font-size: large;"></span></p>
+              <div  x-show="username">
+                <img src="images/me.jpeg" width="100">
+                <p x-text="username" style="font-size: x-large; font-weight: bold; margin: 10px 0 -6px;"></p>
+              </div>
+                <p class="popup-username">Username:</p>
                 <div style="display: flex;">
-                    <input type="text" x-model="usernameInput" class="popup-input" placeholder="Username" x-show="!username">
+                    <input type="text" x-model="usernameInput" class="popup-input" placeholder="Enter any username" x-show="!username">
                     <button x-on:click="submitUsername()" x-bind:class=" !username ? 'popup-submit-btn' : 'popup-submit-btn2'"  x-text="signInBtn"></button>
                 </div>
             </div>
