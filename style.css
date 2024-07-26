@@ -411,7 +411,7 @@ button {
 .popup-box {
   background: #000000;
   color: white;
-  padding: 24px 50px 65px;
+  padding: 24px 30px 65px;
   border-radius: 2px;
   text-align: center;
   position: relative;
@@ -431,7 +431,6 @@ button {
   padding: 15px 30px;
 }
 
-/* Pop-up message */
 .popup-username {
   font-weight: bold;
   margin: 30px 0 10px;
@@ -461,7 +460,8 @@ button {
   color: white;
   border-radius: 0 2px 2px 0;
   cursor: pointer;
-  width: 100%;
+  width: 30%;
+  min-width: 85px;
 }
 .popup-submit-btn2 {
   font-weight: bold;
