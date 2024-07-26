@@ -2,7 +2,7 @@ GET https://pizza-api.projectcodex.net/api/pizzas
 
 ### Create a cart
 
-GET https://pizza-api.projectcodex.net/api/pizza-cart/create?username=MofokengTT21
+GET https://pizza-api.projectcodex.net/api/pizza-cart/create?username=MofokenngTT21
 
 ### Get a cart 
 
@@ -24,14 +24,14 @@ content-type: application/json
 
 {
     "cart_code": "euYIRq2Kn8",
-    "pizza_id": 6
+    "pizza_id": 7
 }
 
 ### GET all the carts for a given user
-GET https://pizza-api.projectcodex.net/api/pizza-cart/username/Tshepo
+GET https://pizza-api.projectcodex.net/api/pizza-cart/username/h
 
 ### GET all the active carts for a user
-GET https://pizza-api.projectcodex.net/api/pizza-cart/username/Tshepo/active
+GET https://pizza-api.projectcodex.net/api/pizza-cart/username/h/active
 
 ### Pay for pizza from the cart
 

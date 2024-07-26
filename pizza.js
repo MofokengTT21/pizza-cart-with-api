@@ -278,8 +278,11 @@ document.addEventListener("alpine:init", () => {
       await this.showCartData();
 
       localStorage.setItem("showPopup", "true");
-      this.init();
-      this.closePopup();
+      if(this.signInBtn === "Sign In") {
+        location.reload();
+      } else {
+        this.init();
+      }
     },
   }));
 });

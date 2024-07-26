@@ -37,7 +37,7 @@
                 <span class="basket-qty" x-text="totalQty()"></span>
             </button>
         </div>
-        <table x-show="showBasket && cartPizzas.length > 0">
+        <table x-show="showBasket && cartPizzas.length > 0" style="display: none;">
             <thead>
                 <tr>
                     <td>Pizza</td>
@@ -86,7 +86,7 @@
             </tfoot>
         </table>
         <!-- Pop-up box -->
-        <div x-show="showPopup && !username || profile" class="popup-overlay" @click="closePopup" >
+        <div x-show="showPopup && !username || profile" class="popup-overlay" @click="closePopup" style="display: none;">
             <div class="popup-box" @click.stop>
                 <button class="popup-close-btn" type="button" x-on:click="closePopup()">x</button>
                 <img src="images/image.png" alt="" style="width: 6em; margin-top: 35px;">
