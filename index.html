@@ -17,7 +17,7 @@
     <header x-data="{ showPopup: false }">
         <div class="logo" style="display: flex; align-items: center;">
             <img class="logo-img" src="images/image.png" width="80px" height="80px">
-            <h1 class="logo-h1" style="margin-top: -10px;">PERFERCT<i style="color: red;">PIZZA</i></h1>
+            <h1 class="logo-h1" style="margin-top: -10px;">PERFECT<i style="color: red;">PIZZA</i></h1>
         </div>
         <button
             style="float: right; margin-left: 10px; padding: 0; border-radius: 100%; background: transparent; margin: -63px 0px; cursor: pointer;"
@@ -102,13 +102,14 @@
                             </div>
                             <div class="featured-description-box">
                                 <h2 class="featured-pizza-heading" x-text="pizza.flavour"></h2>
-                                <p class="featured-pizza-size"><b></b><span x-text="pizza.size"></span></p>
+                                <p class="featured-pizza-size"><b></b><span x-text="pizzza.size"></span></p>
                                 <div
                                     style="display: flex; justify-content: space-between; min-width: 180px; margin-top: -20px; align-items: center;">
-                                    <b class="featured-price">R<span x-text="pizza.price"
-                                            style="font-family:cursive;"></span></b>
                                     <button class="featured-order-btn"
                                         x-on:click="orderPizzas(pizza.id) || openPopup()">Order</button>
+                                    <b class="featured-price">R<span x-text="pizza.price.toFixed()"
+                                            style="font-family:'Racing Sans One', sans-serif"></span><span style="font-size: 20px; color: white; font-family:'Racing Sans One', sans-serif" ;">99</span></b>
+                                    
                                 </div>
                             </div>
                         </div>
