@@ -305,6 +305,9 @@ button {
   }
 }
 @media (max-width: 480px) {
+  .logo-h1 {
+    font-size: 5.5vw;
+  }
   .pizzas-list {
     justify-content: space-between;
   }
@@ -322,6 +325,7 @@ button {
   .small_pizjza {
     flex: 0 0 80%;
   }
+  
 }
 
 @media (max-width: 435px) {
@@ -348,7 +352,7 @@ button {
   }
 }
 @media (max-width: 370px) {
-  .logo-h1 {
+  .logdo-h1 {
     font-size: 8.3vw;
   }
 }
