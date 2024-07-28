@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Racing+Sans+One&display=swap');
+
 * {
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
@@ -305,6 +307,9 @@ button {
   }
 }
 @media (max-width: 480px) {
+  .logo-h1 {
+    font-size: 5.5vw;
+  }
   .pizzas-list {
     justify-content: space-between;
   }
@@ -322,6 +327,7 @@ button {
   .small_pizjza {
     flex: 0 0 80%;
   }
+  
 }
 
 @media (max-width: 435px) {
@@ -348,7 +354,7 @@ button {
   }
 }
 @media (max-width: 370px) {
-  .logo-h1 {
+  .logdo-h1 {
     font-size: 8.3vw;
   }
 }
@@ -407,7 +413,7 @@ button {
 .popup-box {
   background: #000000;
   color: white;
-  padding: 24px 50px 65px;
+  padding: 24px 30px 65px;
   border-radius: 2px;
   text-align: center;
   position: relative;
@@ -427,7 +433,6 @@ button {
   padding: 15px 30px;
 }
 
-/* Pop-up message */
 .popup-username {
   font-weight: bold;
   margin: 30px 0 10px;
@@ -457,7 +462,8 @@ button {
   color: white;
   border-radius: 0 2px 2px 0;
   cursor: pointer;
-  width: 100%;
+  width: 30%;
+  min-width: 85px;
 }
 .popup-submit-btn2 {
   font-weight: bold;
@@ -530,11 +536,11 @@ button {
 }
 
 .featured-description-box {
-  margin-top: -20px;
+  margin-top: -25px;
 }
 
 .featured-pizza-heading {
-  font-size: 19px;
+  font-size: 22px;
   font-weight: bold;
 }
 
@@ -545,22 +551,26 @@ button {
 }
 
 .featured-price {
-  font-family: cursive;
-  font-size: 20px;
-  font-weight: bolder;
-  margin-top: 10px;
+  /* font-family: cursive; */
+  font-size: 35px;
+  /* font-weight: bolder; */
+  margin: 0 0 -100px 0px;
+  font-family: "Racing Sans One", sans-serif;
+  font-weight: 400;
+  font-style: italic;
+  color: white;
 }
 
 .featured-order-btn {
   background-color: rgb(223, 0, 0);
   color: white;
   border: none;
-  padding: 10px 15px;
+  padding: 2px 10px;
   border-radius: 2px;
   cursor: pointer;
   font-size: 15px;
   font-weight: bold;
-  margin-top: 10px;
+  margin-top: 25px;
   transition: transform 0.2s;
 }
 

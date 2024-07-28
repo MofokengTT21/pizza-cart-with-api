@@ -278,7 +278,7 @@ document.addEventListener("alpine:init", () => {
       await this.showCartData();
 
       localStorage.setItem("showPopup", "true");
-      if(this.signInBtn === "Sign In") {
+      if(this.signInBtn === "Sign In" && this.usernameInput) {
         location.reload();
       } else {
         this.init();
