@@ -8,6 +8,7 @@
     <link rel="icon" type="image/png" href="images/image.png">
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
     <script src="https://unpkg.com/axios@1.6.7/dist/axios.min.js"></script>
+    <link rel="stylesheet" href="normalize.css">
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -94,8 +95,9 @@
         <!-- Featured pizazs -->
         <div class="featured-pizzas-wrapper">
             <div class="featured-pizzas-container">
-                <template x-for="pizza in pizzas.slice(0, 4)">
-                    <div class="featured-pizza-box">
+                <template x-for="pizza in featuredPizzas.slice(0, 4)">
+                    <div x-data="{order:true
+                    }" class="featured-pizza-box" x-on:click="order = !order">
                         <div style="display: flex;">
                             <div class="featured-imgs">
                                 <img class="featured-img" :src="pizzaImg(pizza)">
@@ -103,18 +105,19 @@
                             <div class="featured-description-box">
                                 <h2 class="featured-pizza-heading" x-text="pizza.flavour"></h2>
                                 <p class="featured-pizza-size"><b></b><span x-text="pizza.size"></span></p>
-                                <div
-                                    style="display: flex; justify-content: space-between; min-width: 180px; margin-top: -20px; align-items: center;">
+                                <div 
+                                    style="display: flex; justify-content: space-between; min-width: 180px; margin-top: -32px; align-items: center;">
+                                    <p class="featured-price" style="font-size: 20px; color: white; font-family:'Racing Sans One', sans-serif">R<span x-text="pizza.price.toFixed()"
+                                        class="featured-price"></span><span style="font-size: 20px; color: white; font-family:'Racing Sans One', sans-serif" ;">99</span></p>
                                     <button class="featured-order-btn"
-                                        x-on:click="orderPizzas(pizza.id) || openPopup()">Order</button>
-                                    <b class="featured-price">R<span x-text="pizza.price.toFixed()"
-                                            style="font-family:'Racing Sans One', sans-serif"></span><span style="font-size: 20px; color: white; font-family:'Racing Sans One', sans-serif" ;">99</span></b>
+                                        x-on:click="orderPizzas(pizza.id) || openPopup()" x-show="!order">Order</button>
+                                    
                                     
                                 </div>
                             </div>
                         </div>
                         <button
-                            style="color: rgb(255, 255, 255); font-weight: bold; margin: 15px 0 -3px; background-color: rgb(1, 170, 1); border-radius: 2px; font-size:14px; padding: 3px 7px;">Order
+                            style="color: rgb(255, 255, 255); font-weight: bold; background-color: rgb(1, 170, 1); border-radius: 2px; font-size:14px; padding: 3px 7px; margin: 8px 0 15px">Order
                             now, Save R20</button>
                     </div>
                 </template>
@@ -127,21 +130,21 @@
             <div class="popup-box" @click.stop>
                 <button class="popup-close-btn" type="button" x-on:click="closePopup()">x</button>
                 <img src="images/image.png" alt="" style="width: 6em; margin-top: 35px;">
-                <h2 class="logo-h1" style="margin-top: 5px;">PERFERCT<i style="color: red;">PIZZA</i></h2>
+                <h2 class="logo-h1" style="margin-top: 5px;">PERFECT<i style="color: red;">PIZZA</i></h2>
                 <p class="popup-description" x-show="!username">
                     Sign into <span style="font-weight: bold;">Perfect Pizza</span> to
                     add pizza to <span style="font-weight: bold;">Basket</span>
                     <img src="images/basket.png" alt="" style="width: 1.5em; margin: 0 0 -5px 6px;">
                 </p>
                 <div x-show="username">
-                    <img src="images/me.jpeg" width="100">
+                    <img src="images/me.jpeg" width="60">
                     <p x-text="username"
-                        style="font-size: x-large; font-weight: bold; margin: 10px 0 25px; text-transform: capitalize;">
+                        style="font-size: large; font-weight: bold; margin: 10px 0 25px; text-transform: capitalize;">
                     </p>
                 </div>
                 <p class="popup-username" x-show="!username">Username:</p>
                 <div style="display: flex;">
-                    <input type="text" x-model="usernameInput" class="popup-input" placeholder="Enter any username"
+                    <input type="text" x-model="usernameInput" class="popup-input" placeholder="Any username"
                         x-show="!username">
                     <button x-on:click="submitUsername()"
                         x-bind:class=" !username ? 'popup-submit-btn' : 'popup-submit-btn2'"
@@ -284,6 +287,7 @@
                                     <button class="qty-btn1" x-on:click="incrementQty(pizza.id)"><span
                                             class="">+</span></button>
                                     <button class="qty-btn2" x-on:click="decrementQty(pizza.id)"><span>-</span></button>
+                                    <button  x-on:click="setFeaturedPizza(pizza.id)"">Feature</button>
                                 </div>
                             </div>
                         </div>

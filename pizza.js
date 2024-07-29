@@ -8,6 +8,7 @@ document.addEventListener("alpine:init", () => {
       medium: { type: "", flavour: "" },
       large: { type: "", flavour: "" },
     },
+    initUsername: "MOfokengTT21",
     username: "",
     usernameInput: "",
     cartId: "",
@@ -18,6 +19,7 @@ document.addEventListener("alpine:init", () => {
     sumQty: 0.0,
     pizzaQty: {},
     resetTimeoutId: null,
+    featuredPizzas: [],
 
     showQty() {
       this.sumQty = this.cartPizzas.reduce(
@@ -96,6 +98,10 @@ document.addEventListener("alpine:init", () => {
       this.username = localStorage.getItem("username") || "";
       this.usernameInput = this.username;
       this.cartId = localStorage.getItem("cartId") || "";
+      if(!this.usernameInput) {
+        this.defaultSetFeatured();
+      }
+      this.setFeaturedPizza();
       this.signIn();
       axios
         .get("https://pizza-api.projectcodex.net/api/pizzas")
@@ -228,7 +234,33 @@ document.addEventListener("alpine:init", () => {
         "Tikka Chicken",
       ],
     },
-
+    setFeaturedPizza(pizzaId) {
+      const username = this.username || this.initUsername;
+      
+      axios
+        .post("https://pizza-api.projectcodex.net/api/pizzas/featured", {
+          username: username,
+          pizza_id: pizzaId,
+        })
+        .then(() => {
+          this.getFeaturedPizzas();
+        });
+    },
+    
+    defaultSetFeatured() {
+      this.setFeaturedPizza(13);
+      this.setFeaturedPizza(5);
+      this.setFeaturedPizza(15);
+    },
+    getFeaturedPizzas() {
+      const username = this.username || this.initUsername;
+      const url = `https://pizza-api.projectcodex.net/api/pizzas/featured?username=${username}`;
+      
+      axios.get(url).then((result) => {
+        this.featuredPizzas = result.data.pizzas;
+      });
+    },
+    
     pizzaImg(pizza) {
       return `images/pizza-${pizza.flavour
         .replace(/ /g, "-")
@@ -256,8 +288,6 @@ document.addEventListener("alpine:init", () => {
     signIn() {
       if (!this.usernameInput) {
         this.signInBtn = "Sign In";
-        
-
       } else {
         this.signInBtn = "Sign Out";
       }
@@ -265,12 +295,11 @@ document.addEventListener("alpine:init", () => {
     },
     signOut() {
       if (this.signInBtn === "Sign Out") {
-        this.usernameInput = '';
+        this.usernameInput = "";
       }
     },
 
     async submitUsername() {
-      
       this.username = this.usernameInput;
       localStorage.setItem("username", this.username);
 
@@ -278,7 +307,7 @@ document.addEventListener("alpine:init", () => {
       await this.showCartData();
 
       localStorage.setItem("showPopup", "true");
-      if(this.signInBtn === "Sign In" && this.usernameInput) {
+      if (this.signInBtn === "Sign In" && this.usernameInput) {
         location.reload();
       } else {
         this.init();
