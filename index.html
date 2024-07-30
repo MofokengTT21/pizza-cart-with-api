@@ -269,6 +269,7 @@
                         </div>
                         <div class="pizza-description-box">
                             <h2 class="pizza-list-heading" x-text="pizza.flavour"></h2>
+                            <button class="featured-btn"  x-on:click="setFeaturedPizza(pizza.id)"">Feature</button>
                             <p class="all-pizzas-type"
                                 style="margin-top: -12px; text-transform: capitalize; font-weight: bold; color: rgb(112, 112, 112);"
                                 x-text="pizza.type"></p>
@@ -278,6 +279,7 @@
                                         class="all-pizzas-size">Size: </b><span x-text="pizza.size"
                                         style="padding-right: 10px;"></span></p>
                                 <b class="price">R<span x-text="pizza.price"></span></b>
+                                
                             </div>
                             <div style="display: flex;">
                                 <button class="order-btn"
@@ -287,8 +289,8 @@
                                     <button class="qty-btn1" x-on:click="incrementQty(pizza.id)"><span
                                             class="">+</span></button>
                                     <button class="qty-btn2" x-on:click="decrementQty(pizza.id)"><span>-</span></button>
-                                    <button  x-on:click="setFeaturedPizza(pizza.id)"">Feature</button>
                                 </div>
+                                
                             </div>
                         </div>
                     </div>
