@@ -1,0 +1,17 @@
+<div class="order-history" x-shogw="showHistory">
+    <h2>Order History</h2>
+    <template x-for="order in orderHistory">
+        <div class="order">
+            <h3>Order ID: <span x-text="order.id"></span></h3>
+            <p>Total: R <span x-text="order.total"></span></p>
+            <h4>Pizzas Ordered:</h4>
+            <ul>
+                <template x-for="pizza in order.pizzas">
+                    <li>
+                        <span x-text="pizza.flavour"></span> - <span x-text="pizza.size"></span> (Qty: <span x-text="pizza.qty"></span>)
+                    </li>
+                </template>
+            </ul>
+        </div>
+    </template>
+</div>

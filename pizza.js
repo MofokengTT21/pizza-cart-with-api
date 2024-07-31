@@ -8,7 +8,8 @@ document.addEventListener("alpine:init", () => {
       medium: { type: "", flavour: "" },
       large: { type: "", flavour: "" },
     },
-    initUsername: "MOfokengTT21",
+    isAdmin: false,
+    initUsername: "MofokengTT21",
     username: "",
     usernameInput: "",
     cartId: "",
@@ -20,7 +21,14 @@ document.addEventListener("alpine:init", () => {
     pizzaQty: {},
     resetTimeoutId: null,
     featuredPizzas: [],
+    orderHistory: [],
+    showHistory: false,
+    paymentSuccessful: false,
+    paymentAmount: "",
+    message: "",
+    messagePaid: "",
 
+  
     showQty() {
       this.sumQty = this.cartPizzas.reduce(
         (accumulator, pizza) => accumulator + pizza.qty,
@@ -29,9 +37,7 @@ document.addEventListener("alpine:init", () => {
     },
 
     cartTotal: 0.0,
-    paymentAmount: "",
-    message: "",
-    messagePaid: "",
+
     createCart() {
       const createCartURL = `https://pizza-api.projectcodex.net/api/pizza-cart/create?username=${this.username}`;
       return axios.get(createCartURL).then((result) => {
@@ -98,7 +104,8 @@ document.addEventListener("alpine:init", () => {
       this.username = localStorage.getItem("username") || "";
       this.usernameInput = this.username;
       this.cartId = localStorage.getItem("cartId") || "";
-      if(!this.usernameInput) {
+      this.isAdmin = JSON.parse(localStorage.getItem("isAdmin")) || false;
+      if (!this.usernameInput || !this.isAdmin) {
         this.defaultSetFeatured();
       }
       this.setFeaturedPizza();
@@ -113,10 +120,12 @@ document.addEventListener("alpine:init", () => {
       if (this.cartId) {
         this.showCartData();
       } else if (this.username) {
-        this.createCart().then((result) => {
+        this.createCart().then(() => {
           this.showCartData();
         });
       }
+
+      this.loadOrderHistory();
     },
 
     addPizzaToCart(pizzaId) {
@@ -134,14 +143,26 @@ document.addEventListener("alpine:init", () => {
           setTimeout(() => (this.message = ""), 3000);
         } else {
           this.messagePaid = "Payment successful";
+          this.paymentSuccessful = true;
+          this.orderHistory.push({
+            id: this.cartId,
+            pizzas: [...this.cartPizzas],
+            total: this.cartTotal
+          });
+          this.saveOrderHistory();
+          setTimeout(() => {
+            this.showOrderHistory();
+        }, 3000);
+        
+ 
           setTimeout(() => {
             this.message = "";
             this.cartPizzas = [];
             this.cartTotal = 0.0;
-            (this.cartId = ""),
-              this.createCart(),
-              (this.paymentAmount = ""),
-              (this.messagePaid = "");
+            this.cartId = "";
+            this.createCart();
+            this.paymentAmount = "";
+            this.messagePaid = "";
           }, 3000);
         }
       });
@@ -234,9 +255,10 @@ document.addEventListener("alpine:init", () => {
         "Tikka Chicken",
       ],
     },
+
     setFeaturedPizza(pizzaId) {
       const username = this.username || this.initUsername;
-      
+
       axios
         .post("https://pizza-api.projectcodex.net/api/pizzas/featured", {
           username: username,
@@ -246,21 +268,22 @@ document.addEventListener("alpine:init", () => {
           this.getFeaturedPizzas();
         });
     },
-    
+
     defaultSetFeatured() {
       this.setFeaturedPizza(13);
       this.setFeaturedPizza(5);
       this.setFeaturedPizza(15);
     },
+
     getFeaturedPizzas() {
       const username = this.username || this.initUsername;
       const url = `https://pizza-api.projectcodex.net/api/pizzas/featured?username=${username}`;
-      
+
       axios.get(url).then((result) => {
         this.featuredPizzas = result.data.pizzas;
       });
     },
-    
+
     pizzaImg(pizza) {
       return `images/pizza-${pizza.flavour
         .replace(/ /g, "-")
@@ -274,9 +297,11 @@ document.addEventListener("alpine:init", () => {
     totalQty() {
       return this.cartPizzas.reduce((sum, pizza) => sum + pizza.qty, 0);
     },
+
     openPopup() {
       this.showPopup = true;
     },
+
     profileBtn() {
       this.profile = true;
     },
@@ -285,6 +310,7 @@ document.addEventListener("alpine:init", () => {
       this.showPopup = false;
       this.profile = false;
     },
+
     signIn() {
       if (!this.usernameInput) {
         this.signInBtn = "Sign In";
@@ -293,6 +319,7 @@ document.addEventListener("alpine:init", () => {
       }
       this.signOut();
     },
+
     signOut() {
       if (this.signInBtn === "Sign Out") {
         this.usernameInput = "";
@@ -302,6 +329,8 @@ document.addEventListener("alpine:init", () => {
     async submitUsername() {
       this.username = this.usernameInput;
       localStorage.setItem("username", this.username);
+      localStorage.setItem("isAdmin", JSON.stringify(this.isAdmin));
+      
 
       await this.createCart();
       await this.showCartData();
@@ -313,5 +342,25 @@ document.addEventListener("alpine:init", () => {
         this.init();
       }
     },
+
+    saveOrderHistory() {
+      if (this.username) {
+        if (this.orderHistory.length > 3) {
+          this.orderHistory = this.orderHistory.slice(-3);
+        }
+        localStorage.setItem('orderHistory_' + this.username, JSON.stringify(this.orderHistory));
+      }
+    },
+
+    loadOrderHistory() {
+      const storedHistory = localStorage.getItem('orderHistory_' + this.username);
+      if (storedHistory) {
+        this.orderHistory = JSON.parse(storedHistory);
+      }
+    },
+
+    showOrderHistory() {
+      this.showHistory = true;
+    }
   }));
 });

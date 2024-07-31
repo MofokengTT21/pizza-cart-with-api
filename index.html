@@ -30,8 +30,6 @@
 
     </header>
 
-
-
     <div class="content" x-data="{ showBasket: false }">
 
 
@@ -92,6 +90,49 @@
                 </tr>
             </tfoot>
         </table>
+        <!-- Order History -->
+        <section x-show="showHistory" style="margin-top: -30px;">
+            <table class="order-history">
+                <div style="display: flex; justify-content: space-between; padding: 18px;">
+                    <h2>Order History</h2>
+                    <p style="text-decoration: underline; cursor: pointer; font-size: 18px;"
+                        x-on:click="showHistory = false">Close</p>
+                </div>
+                <thead>
+                    <tr>
+                        <th>Pizza</th>
+                        <th style="padding-right: 50px;">Flavour</th>
+                        <th class="order-quantity">Qty</th>
+                        <th class="order-price">Price</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    <template x-for="order in orderHistory" :key="order.id">
+                        <template x-for="pizza in order.pizzas" :key="pizza.id">
+                            <tr>
+                                <td><img class="order-pizza-img" :src="pizzaImg(pizza)" alt="Pizza Image"></td>
+                                <td>
+                                    <p class="order-pizza-flavour" x-text="pizza.flavour"></p><br>
+                                    <p class="order-pizza-type" x-text="pizza.type"
+                                        style="text-transform: capitalize; color: rgb(124, 124, 124); margin: -30px 0 -25px;">
+                                    </p><br>
+                                    <p class="order-pizza-size" style="text-transform: capitalize;"><b>Size: </b><span
+                                            x-text="pizza.size"></span></p>
+                                </td>
+                                <td><span class="order-qty" x-text="pizza.qty"></span></td>
+                                <td><span class="order-price"><b class="order-price-amount">R <span
+                                                x-text="pizza.total"></span></b></span></td>
+                            </tr>
+                        </template>
+                    </template>
+                </tbody>
+            </table>
+        </section>
+
+
+
+
         <!-- Featured pizazs -->
         <div class="featured-pizzas-wrapper">
             <div class="featured-pizzas-container">
@@ -105,19 +146,21 @@
                             <div class="featured-description-box">
                                 <h2 class="featured-pizza-heading" x-text="pizza.flavour"></h2>
                                 <p class="featured-pizza-size"><b></b><span x-text="pizza.size"></span></p>
-                                <div 
+                                <div
                                     style="display: flex; justify-content: space-between; min-width: 180px; margin-top: -32px; align-items: center;">
-                                    <p class="featured-price" style="font-size: 20px; color: white; font-family:'Racing Sans One', sans-serif">R<span x-text="pizza.price.toFixed()"
-                                        class="featured-price"></span><span style="font-size: 20px; color: white; font-family:'Racing Sans One', sans-serif" ;">99</span></p>
-                                    <button class="featured-order-btn"
-                                        x-on:click="orderPizzas(pizza.id) || openPopup()" x-show="!order">Order</button>
-                                    
-                                    
+                                    <p class="featured-price"
+                                        style="font-size: 20px; color: white; font-family:'Racing Sans One', sans-serif">
+                                        R<span x-text="pizza.price.toFixed()" class="featured-price"></span><span
+                                            class="nine-nine">99</span></p>
+                                    <button class="featured-order-btn" x-on:click="orderPizzas(pizza.id) || openPopup()"
+                                        x-show="!order">Order</button>
+
+
                                 </div>
                             </div>
                         </div>
                         <button
-                            style="color: rgb(255, 255, 255); font-weight: bold; background-color: rgb(1, 170, 1); border-radius: 2px; font-size:14px; padding: 3px 7px; margin: 8px 0 15px">Order
+                            class="save-order">Order
                             now, Save R20</button>
                     </div>
                 </template>
@@ -138,18 +181,30 @@
                 </p>
                 <div x-show="username">
                     <img src="images/me.jpeg" width="60">
-                    <p x-text="username"
-                        style="font-size: large; font-weight: bold; margin: 10px 0 25px; text-transform: capitalize;">
-                    </p>
+                    <div style="display: flex; justify-content: center; align-items: center; gap: 10px;">
+                        <p x-text="username"
+                            style="font-size: large; font-weight: bold; margin: 10px 0 25px; text-transform: capitalize;">
+                        </p>
+                        <button style="background-color: rgb(1, 170, 1); color: white; margin-top: -13px; border-radius: 2px;" x-show="isAdmin">
+                        admin
+                        </button>
+                    </div>
                 </div>
-                <p class="popup-username" x-show="!username">Username:</p>
-                <div style="display: flex;">
+                <div style="display: flex; justify-content: space-between;">
+                    <p class="popup-username" x-show="!username">Username</p>
+                    <div style="padding: 30px 0 0;" x-show="!username">
+                        <input id="role" type="checkbox" x-model="isAdmin" class="admin-checkbox"><label for="role"> admin</label>
+                    </div>
+                </div>
+                <div style="display: flex; margin-bottom: 20px;">
                     <input type="text" x-model="usernameInput" class="popup-input" placeholder="Any username"
                         x-show="!username">
                     <button x-on:click="submitUsername()"
                         x-bind:class=" !username ? 'popup-submit-btn' : 'popup-submit-btn2'"
                         x-text="signInBtn"></button>
+
                 </div>
+                <u x-on:click="showOrderHistory; closePopup()" style="cursor: pointer;"><i>Order History</i></u>
             </div>
         </div>
 
@@ -269,37 +324,45 @@
                         </div>
                         <div class="pizza-description-box">
                             <h2 class="pizza-list-heading" x-text="pizza.flavour"></h2>
-                            <button class="featured-btn"  x-on:click="setFeaturedPizza(pizza.id)"">Feature</button>
-                            <p class="all-pizzas-type"
+                            <button class="featured-btn" x-show="isAdmin && username" x-on:click="setFeaturedPizza(pizza.id)" >Set as Featured</button>
+                            <p class=" all-pizzas-type"
                                 style="margin-top: -12px; text-transform: capitalize; font-weight: bold; color: rgb(112, 112, 112);"
                                 x-text="pizza.type"></p>
-                            <div
-                                style="display: flex; justify-content: space-between; flex-wrap: wrap; align-items: center; margin-top: -25px;">
-                                <p class="all-pizzas-size" style="text-transform: capitalize;"><b
-                                        class="all-pizzas-size">Size: </b><span x-text="pizza.size"
-                                        style="padding-right: 10px;"></span></p>
-                                <b class="price">R<span x-text="pizza.price"></span></b>
-                                
-                            </div>
-                            <div style="display: flex;">
-                                <button class="order-btn"
-                                    x-on:click="orderPizzas(pizza.id) || openPopup()">Order</button>
-                                <button class="qty" style="cursor: text;" x-text="pizzaQty[pizza.id] || 0"></button>
-                                <div class="qty-btn" style="display: grid;">
-                                    <button class="qty-btn1" x-on:click="incrementQty(pizza.id)"><span
-                                            class="">+</span></button>
-                                    <button class="qty-btn2" x-on:click="decrementQty(pizza.id)"><span>-</span></button>
+                                <div
+                                    style="display: flex; justify-content: space-between; flex-wrap: wrap; align-items: center; margin-top: -25px;">
+                                    <p class="all-pizzas-size" style="text-transform: capitalize;"><b
+                                            class="all-pizzas-size">Size: </b><span x-text="pizza.size"
+                                            style="padding-right: 10px;"></span></p>
+                                    <b class="price">R<span x-text="pizza.price"></span></b>
+
                                 </div>
-                                
-                            </div>
+                                <div style="display: flex;">
+                                    <button class="order-btn"
+                                        x-on:click="orderPizzas(pizza.id) || openPopup()">Order</button>
+                                    <button class="qty" style="cursor: text;" x-text="pizzaQty[pizza.id] || 0"></button>
+                                    <div class="qty-btn" style="display: grid;">
+                                        <button class="qty-btn1" x-on:click="incrementQty(pizza.id)"><span
+                                                class="">+</span></button>
+                                        <button class="qty-btn2"
+                                            x-on:click="decrementQty(pizza.id)"><span>-</span></button>
+                                    </div>
+
+                                </div>
                         </div>
                     </div>
                 </template>
             </div>
         </div>
     </div>
+    <br><br>
+  <footer style="background-color: black; height: 15vh;">
+    <div style="text-align: center; padding-top: 38px;">
+      <a href="https://wa.me/qr/OI26QJNBJSEYF1"><img src="images/whatsapp.png" alt="WhatsApp" width="40px"></a>
+      <a href="https://www.linkedin.com/in/mofokengtt21"><img src="images/linked-in.png" alt="LinkedIn" width="40px"></a>
+    </div><br>
+  </footer>
     <script src="pizza.js"></script>
-    
+
 </body>
 
 </html>
